@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 
 import Splash from './src/scenes/Splash';
+import { AppNavigator } from './src/navigators';
 import store from './src/store';
 
 export default class App extends React.Component {

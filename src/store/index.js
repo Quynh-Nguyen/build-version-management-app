@@ -5,7 +5,10 @@ import {
   compose,
   applyMiddleware
 } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import {
+  createReduxBoundAddListener,
+  createReactNavigationReduxMiddleware,
+} from 'react-navigation-redux-helpers';
 
 // import { reducer as dataReducer } from '../data/reducer';
 // import { reducer as servicesReducer } from '../services/reducer';
