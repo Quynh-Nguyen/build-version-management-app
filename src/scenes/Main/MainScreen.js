@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class MainScreen extends Component {
+class MainScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -20,4 +20,4 @@ class MainScreen extends Component {
   }
 }
 
-export default MainScreen
+export { MainScreen }

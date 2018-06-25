@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import Splash from './src/scenes/Splash';
 import { AppNavigator } from './src/navigators';
-import store from './src/store';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -21,19 +20,19 @@ export default class App extends React.Component {
     }
 
     return (
-      <Splash />
+      <AppNavigator
+        initialRoute={this.state.initialRoute}
+      />
     )
 	}
 
   render() {
     return (
       <View style={styles.container}>
-        <Provider store={store}>
           {this.renderContent()}
           <Text>Open up App.js to start working on your app!</Text>
           <Text>Changes you make will automatically reload.</Text>
           <Text>Shake your phone to open the developer menu.</Text>
-        </Provider>
       </View>
     );
   }
