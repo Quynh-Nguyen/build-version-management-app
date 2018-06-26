@@ -1,13 +1,17 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
-import { MainScreen } from '../scenes/Main'
+import { createStackNavigator } from 'react-navigation';
+import { MainScreen } from '../scenes/Main';
+import { SplashScreen } from '../scenes/Splash';
 
-const AppNavigator = StackNavigator({
+const AppNavigator = createStackNavigator({
+  SplashScreen: {
+    screen: SplashScreen
+  },
   Main: {
     screen: MainScreen
   }
 }, {
-  initialRoute: 'Main'
+  headerMode: 'screen'
 });
 
 export { AppNavigator };

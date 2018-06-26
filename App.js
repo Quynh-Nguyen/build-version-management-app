@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 
-import Splash from './src/scenes/Splash';
 import { AppNavigator } from './src/navigators';
 
 export default class App extends React.Component {
@@ -10,18 +9,16 @@ export default class App extends React.Component {
     super(props)
 
     this.state = {
-      initialRoute: null,
+      isAppReady: false,
+      isLoggedIn: false,
     }
   }
 
   renderContent = () => {
-    if (!this.state.initialRoute) {
-      return <Splash />
-    }
-
     return (
       <AppNavigator
-        initialRoute={this.state.initialRoute}
+        isAppReady={this.state.isAppReady}
+        isLoggedIn={this.state.isLoggedIn}
       />
     )
 	}
