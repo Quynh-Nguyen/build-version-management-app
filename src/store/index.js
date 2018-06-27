@@ -18,7 +18,7 @@ import {
 //   data: dataReducer
 // })
 
-const sagaMiddleware = createSagaMiddleware();
+// const sagaMiddleware = createSagaMiddleware();
 
 const enhancer = compose(
   applyMiddleware(

@@ -5,8 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000',
+    alignItems: 'center'
   },
 });
 
@@ -16,7 +15,6 @@ class AuthScreen extends React.Component {
   };
 
   render() {
-    console.log('AuthScreen XXX');
     return (
       <View style={styles.container}>
         <Text>Auth Screen!</Text>

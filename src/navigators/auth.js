@@ -5,7 +5,10 @@ import { AuthScreen } from '../scenes/Auth';
 
 const AuthNavigator = createStackNavigator({
   Auth: {
-    screen: AuthScreen
+    screen: AuthScreen,
+    navigationOptions: ({ navigation }) => ({
+
+    })
   }
 });
 
