@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 
-import { AppNavigator } from './src/navigators';
+import { AppNavigation } from './src/navigators';
+import store from './src/store';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,13 +17,15 @@ export default class App extends React.Component {
 
   renderContent = () => {
     return (
-      <AppNavigator />
+      <AppNavigation />
     )
 	}
 
   render() {
     return (
-      this.renderContent()
+      <Provider store={store}>
+        this.renderContent()
+      </Provider>
     );
   }
 }

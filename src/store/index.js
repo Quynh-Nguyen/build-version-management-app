@@ -10,7 +10,9 @@ import {
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 
-// import { reducer as dataReducer } from '../data/reducer';
+import rootReducer from '../reducers';
+import { appMiddleware } from '../navigators';
+
 // import { reducer as servicesReducer } from '../services/reducer';
 //
 // const appReducer = combineReducers({
@@ -22,14 +24,14 @@ import {
 
 const enhancer = compose(
   applyMiddleware(
-    sagaMiddleware
+    appMiddleware,
   ),
 )
 
 const store = createStore(
-  // appReducer,
+  rootReducer,
   enhancer
 )
-console.log(store)
+console.log('store', store)
 
 export default store
