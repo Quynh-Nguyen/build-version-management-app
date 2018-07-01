@@ -10,6 +10,8 @@ const AuthNavigator = createStackNavigator({
 
     })
   }
+}, {
+   headerMode: 'none',
 });
 
 export { AuthNavigator }

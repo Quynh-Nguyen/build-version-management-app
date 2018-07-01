@@ -4,14 +4,18 @@ import { AppNavigator } from '../navigators';
 
 const firstAction = AppNavigator.router.getActionForPathAndParams('Splash');
 const tempNavState = AppNavigator.router.getStateForAction(firstAction);
-const secondAction = AppNavigator.router.getActionForPathAndParams('Auth');
+console.log('tempNavState', tempNavState);
+const secondAction = AppNavigator.router.getActionForPathAndParams('Splash');
 const initialNavState = AppNavigator.router.getStateForAction(
   secondAction,
   tempNavState
 );
 
+console.log('initialNavState', initialNavState);
+
 export default(state = initialNavState, action) => {
   let nextState;
+  console.log('action.type', action.type);
   switch (action.type) {
     case 'MAIN':
       nextState = AppNavigator.router.getStateForAction(

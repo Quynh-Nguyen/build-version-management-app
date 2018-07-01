@@ -13,15 +13,6 @@ import {
 import rootReducer from '../reducers';
 import { appMiddleware } from '../navigators';
 
-// import { reducer as servicesReducer } from '../services/reducer';
-//
-// const appReducer = combineReducers({
-//   services: servicesReducer,
-//   data: dataReducer
-// })
-
-// const sagaMiddleware = createSagaMiddleware();
-
 const enhancer = compose(
   applyMiddleware(
     appMiddleware,

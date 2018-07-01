@@ -15,16 +15,11 @@ export default class App extends React.Component {
     }
   }
 
-  renderContent = () => {
-    return (
-      <AppNavigation />
-    )
-	}
-
   render() {
+    console.log('Store App', store);
     return (
       <Provider store={store}>
-        this.renderContent()
+        <AppNavigation />
       </Provider>
     );
   }

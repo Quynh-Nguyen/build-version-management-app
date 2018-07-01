@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   ActivityIndicator,
   AsyncStorage,
@@ -18,18 +19,19 @@ const styles = StyleSheet.create({
 })
 
 class SplashScreen extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this._bootstrapAsync();
   }
 
   _bootstrapAsync = async() => {
+    const { navigation } = this.props
     console.log('test');
     const userToken = await AsyncStorage.getItem('userToken');
     console.log('userToken', userToken);
-    console.log('this.props.navigation', this.props.navigation);
+    console.log('this.props.navigation', navigation);
 
-    this.props.navigation.navigate(userToken ? 'Main' : 'Auth');
+    navigation.navigate(userToken ? 'Main' : 'Auth');
   }
 
   render() {
@@ -44,6 +46,10 @@ class SplashScreen extends React.Component {
       </View>
     );
   }
+}
+
+SplashScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
 }
 
 export { SplashScreen }
