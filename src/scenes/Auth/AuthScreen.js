@@ -1,133 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, StatusBar, FlatList, Easing } from 'react-native';
+import { StyleSheet, View, Text, StatusBar, FlatList, Easing, Animated } from 'react-native';
 import Swiper from 'react-native-swiper';
-import { SharedElementRenderer, SharedElement } from 'react-native-motion';
 import moment from 'moment';
-
-import { ListItem } from '../../components/ListItem';
-
-const data = [
-  {
-    name: 'Hermes',
-    amount: '$1,500.67',
-    date: moment(),
-    isReceived: false,
-    items: [
-      {
-        name: 'Lather moto jacket',
-        amount: '$8,564.00',
-      },
-      {
-        name: 'Lorem ipsum',
-        amount: '$358.00',
-      },
-      {
-        name: 'Enim ad minim veniam',
-        amount: '$1,355.00',
-      },
-      {
-        name: 'Dolor in reprehenderit',
-        amount: '$2,333.12',
-      },
-    ],
-  },
-  {
-    name: 'Philipp Plein',
-    amount: '$1,245.17',
-    date: moment(),
-    isReceived: true,
-    items: [
-      {
-        name: 'Lather moto jacket',
-        amount: '$8,564.00',
-      },
-      {
-        name: 'Lorem ipsum',
-        amount: '$358.00',
-      },
-      {
-        name: 'Enim ad minim veniam',
-        amount: '$1,355.00',
-      },
-      {
-        name: 'Dolor in reprehenderit',
-        amount: '$2,333.12',
-      },
-    ],
-  },
-  {
-    name: 'L`Ocitane',
-    amount: '$545.28',
-    date: moment(),
-    isReceived: true,
-    items: [
-      {
-        name: 'Lather moto jacket',
-        amount: '$8,564.00',
-      },
-      {
-        name: 'Lorem ipsum',
-        amount: '$358.00',
-      },
-      {
-        name: 'Enim ad minim veniam',
-        amount: '$1,355.00',
-      },
-      {
-        name: 'Dolor in reprehenderit',
-        amount: '$2,333.12',
-      },
-    ],
-  },
-  {
-    name: 'Kenzo',
-    amount: '$375.37',
-    date: moment(),
-    isReceived: false,
-    items: [
-      {
-        name: 'Lather moto jacket',
-        amount: '$8,564.00',
-      },
-      {
-        name: 'Lorem ipsum',
-        amount: '$358.00',
-      },
-      {
-        name: 'Enim ad minim veniam',
-        amount: '$1,355.00',
-      },
-      {
-        name: 'Dolor in reprehenderit',
-        amount: '$2,333.12',
-      },
-    ],
-  },
-  {
-    name: 'Ray Ban',
-    amount: '$151.33',
-    date: moment(),
-    isReceived: true,
-    items: [
-      {
-        name: 'Lather moto jacket',
-        amount: '$8,564.00',
-      },
-      {
-        name: 'Lorem ipsum',
-        amount: '$358.00',
-      },
-      {
-        name: 'Enim ad minim veniam',
-        amount: '$1,355.00',
-      },
-      {
-        name: 'Dolor in reprehenderit',
-        amount: '$2,333.12',
-      },
-    ],
-  },
-];
 
 const styles = StyleSheet.create({
   container: {
@@ -164,63 +38,68 @@ const styles = StyleSheet.create({
 });
 
 class AuthScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      marginTopAnim: new Animated.Value(0),
+    }
+  }
+
+  componentDidMount() {
+    Animated.timing(
+      this.state.marginTopAnim,
+      {
+        duration: 400,
+        toValue: 300,
+        easing: Easing.linear
+      }
+    ).start();
+  }
+
   static navigationOptions = {
     title: 'Please sign in',
   };
 
   render() {
+    const { marginTopAnim } = this.state;
+
     return (
-      <SharedElementRenderer>
-        <View style={styles.container}>
-          <StatusBar barStyle='dark-content' />
-          <Swiper style={styles.wrapper}
-            dot={<View style={styles.dot} />}
-            activeDot={<View style={styles.active_dot} />}
-            paginationStyle={{
-              bottom: 70
+      <View style={styles.container}>
+        <StatusBar barStyle='dark-content' />
+        <Swiper style={styles.wrapper}
+          dot={<View style={styles.dot} />}
+          activeDot={<View style={styles.active_dot} />}
+          paginationStyle={{
+            bottom: 70
+          }}
+          loop={true}>
+          <View style={styles.slide}>
+            <Animated.View style={{
+              backgroundColor: '#2196F3',
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+              marginTop: marginTopAnim
             }}
-            loop={true}>
-            <View style={styles.slide}>
-              <FlatList
-              data={data}
-              renderItem={this.renderItem}
-              />
-            </View>
-            <View style={styles.slide}>
-              <Text>Auth Screen!</Text>
-              <Text>Changes you make will automatically reload.</Text>
-              <Text>Shake your phone to open the developer menu.</Text>
-            </View>
-            <View style={styles.slide}>
-              <Text>Auth Screen!</Text>
-              <Text>Changes you make will automatically reload.</Text>
-              <Text>Shake your phone to open the developer menu.</Text>
-            </View>
-          </Swiper>
-        </View>
-      </SharedElementRenderer>
+            />
+            <Text>Auth Screen!</Text>
+            <Text>Changes you make will automatically reload.</Text>
+            <Text>Shake your phone to open the developer menu.</Text>
+          </View>
+          <View style={styles.slide}>
+            <Text>Auth Screen!</Text>
+            <Text>Changes you make will automatically reload.</Text>
+            <Text>Shake your phone to open the developer menu.</Text>
+          </View>
+          <View style={styles.slide}>
+            <Text>Auth Screen!</Text>
+            <Text>Changes you make will automatically reload.</Text>
+            <Text>Shake your phone to open the developer menu.</Text>
+          </View>
+        </Swiper>
+      </View>
     );
   }
-
-  renderItem = ({ item }) => {
-    const id = item.name;
-
-    return (
-      <SharedElement
-        easing={Easing.in(Easing.back())}
-        id={id}
-        item={item}
-      >
-        <View
-          style={{
-            backgroundColor: 'transparent',
-          }}
-        >
-          <ListItem item={item}/>
-        </View>
-      </SharedElement>
-    );
-  };
 }
 
 export { AuthScreen }
