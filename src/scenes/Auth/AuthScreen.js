@@ -46,12 +46,23 @@ class AuthScreen extends React.Component {
   }
 
   componentDidMount() {
+    // Animated.spring(
+    //   this.state.marginTopAnim,
+    //   {
+    //     bounciness: 20,
+    //     toValue: 2,
+    //     useNativeDriver: true,
+    //     // easing: Easing.linear
+    //   }
+    // ).start();
     Animated.timing(
       this.state.marginTopAnim,
       {
-        duration: 400,
-        toValue: 300,
-        easing: Easing.linear
+        // bounciness: 20,
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+        // easing: Easing.linear
       }
     ).start();
   }
@@ -75,18 +86,102 @@ class AuthScreen extends React.Component {
           loop={true}>
           <View style={styles.slide}>
             <Animated.View style={{
-              backgroundColor: '#2196F3',
-              width: 100,
+              backgroundColor: '#fff',
+              justifyContent: 'center',
+              width: 350,
               height: 100,
-              borderRadius: 50,
-              marginTop: marginTopAnim
-            }}
-            />
+              borderRadius: 10,
+              shadowColor: '#555',
+              shadowOffset: {
+                width: 0,
+                height: 3
+              },
+              shadowRadius: 10,
+              shadowOpacity: 0.2,
+              transform: [{ scale: marginTopAnim.interpolate({
+                inputRange: [0, 0.2, 0.8, 1],
+                outputRange: [1, 0.6, 2, 1]
+              }) }]
+            }}>
+              <View
+                style={{
+                  backgroundColor: '#2196F3',
+                  width: 80,
+                  height: 80,
+                  borderRadius: 10,
+                }}
+              />
+            </Animated.View>
+            <Animated.View style={{
+              backgroundColor: '#fff',
+              justifyContent: 'center',
+              width: 350,
+              height: 100,
+              borderRadius: 10,
+              shadowColor: '#555',
+              shadowOffset: {
+                width: 0,
+                height: 3
+              },
+              shadowRadius: 10,
+              shadowOpacity: 0.2,
+              transform: [{ scale: marginTopAnim.interpolate({
+                inputRange: [0, 0.2, 0.8, 1],
+                outputRange: [1, 0.6, 2, 1]
+              }) }]
+            }}>
+              <View
+                style={{
+                  backgroundColor: '#2196F3',
+                  width: 80,
+                  height: 80,
+                  borderRadius: 10,
+                }}
+              />
+            </Animated.View>
+            <Animated.View style={{
+              backgroundColor: '#fff',
+              justifyContent: 'center',
+              width: 350,
+              height: 100,
+              borderRadius: 10,
+              shadowColor: '#555',
+              shadowOffset: {
+                width: 0,
+                height: 3
+              },
+              shadowRadius: 10,
+              shadowOpacity: 0.2,
+              transform: [{ scale: marginTopAnim.interpolate({
+                inputRange: [0, 0.2, 0.8, 1],
+                outputRange: [1, 0.6, 2, 1]
+              }) }]
+            }}>
+              <View
+                style={{
+                  backgroundColor: '#2196F3',
+                  width: 80,
+                  height: 80,
+                  borderRadius: 10,
+                }}
+              />
+            </Animated.View>
             <Text>Auth Screen!</Text>
             <Text>Changes you make will automatically reload.</Text>
             <Text>Shake your phone to open the developer menu.</Text>
           </View>
           <View style={styles.slide}>
+            <Animated.View style={{
+              backgroundColor: '#2196F3',
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+              transform: [{ scale: marginTopAnim.interpolate({
+                inputRange: [0, 0.2, 0.8, 1],
+                outputRange: [1, 0.6, 2, 1]
+              }) }]
+            }}
+            />
             <Text>Auth Screen!</Text>
             <Text>Changes you make will automatically reload.</Text>
             <Text>Shake your phone to open the developer menu.</Text>
