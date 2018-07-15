@@ -3,12 +3,15 @@ import { StyleSheet, View, Text, StatusBar, FlatList, Easing, Animated } from 'r
 import Swiper from 'react-native-swiper';
 import moment from 'moment';
 
+import { TextButton } from '../../components/Button';
+import { NormalText, BoldText } from '../../components/Text';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: '#434756',
   },
   slide: {
     flex: 1,
@@ -35,6 +38,11 @@ const styles = StyleSheet.create({
     marginLeft: 7,
     marginRight: 7
   },
+  bottom: {
+    flex: 0.15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 class AuthScreen extends React.Component {
@@ -115,11 +123,9 @@ class AuthScreen extends React.Component {
               justifyContent: 'center',
               // marginTop: 20,
             }}>
-              <Text style={{
-                fontWeight: 'bold',
-              }}>Project List!</Text>
-              <Text>Changes you make will automatically reload.</Text>
-              <Text>Shake your phone to open the developer menu.</Text>
+              <BoldText>Project List</BoldText>
+              <NormalText>Manage your projects.</NormalText>
+              <NormalText>In one place, instantly searchable.</NormalText>
             </View>
             <View style={{
               flex: 3/4,
@@ -129,19 +135,21 @@ class AuthScreen extends React.Component {
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 margin: 5,
-                backgroundColor: '#fff',
+                backgroundColor: 'rgba(216, 216, 216, 0.05)',
                 justifyContent: 'space-around',
                 alignItems: 'center',
                 width: 250,
                 height: 60,
                 borderRadius: 8,
+                borderWidth: 1,
+                borderColor: '#1CBFB5',
                 shadowColor: '#000',
                 shadowOffset: {
                   width: 0,
                   height: 4
                 },
                 shadowRadius: 8,
-                shadowOpacity: 0.1,
+                shadowOpacity: 0,
                 transform: [{ scale: marginTopAnim.interpolate({
                   inputRange: [0, 0.2, 0.8, 1],
                   outputRange: [0, 0.6, 0.8, 1]
@@ -198,7 +206,7 @@ class AuthScreen extends React.Component {
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 margin: 5,
-                backgroundColor: '#fff',
+                backgroundColor: 'rgba(216, 216, 216, 0.05)',
                 justifyContent: 'space-around',
                 alignItems: 'center',
                 width: 250,
@@ -233,7 +241,7 @@ class AuthScreen extends React.Component {
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 margin: 5,
-                backgroundColor: '#fff',
+                backgroundColor: 'rgba(216, 216, 216, 0.05)',
                 justifyContent: 'space-around',
                 alignItems: 'center',
                 width: 250,
@@ -282,19 +290,20 @@ class AuthScreen extends React.Component {
               }) }]
             }}
             />
-            <Text>Auth Screen!</Text>
-            <Text>Changes you make will automatically reload.</Text>
-            <Text>Shake your phone to open the developer menu.</Text>
+            <NormalText>Auth Screen!</NormalText>
+            <NormalText>Changes you make will automatically reload.</NormalText>
+            <NormalText>Shake your phone to open the developer menu.</NormalText>
           </View>
           <View style={styles.slide}>
-            <Text>Auth Screen!</Text>
-            <Text>Changes you make will automatically reload.</Text>
-            <Text>Shake your phone to open the developer menu.</Text>
+            <NormalText>Auth Screen!</NormalText>
+            <NormalText>Changes you make will automatically reload.</NormalText>
+            <NormalText>Shake your phone to open the developer menu.</NormalText>
           </View>
         </Swiper>
-        <Text>Auth Screen!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <View style={styles.bottom}>
+          <TextButton raised={true} primary={true} upperCase={false} text='Get Started'/>
+          <TextButton upperCase={false} text='Sign In'/>
+        </View>
       </View>
     );
   }
