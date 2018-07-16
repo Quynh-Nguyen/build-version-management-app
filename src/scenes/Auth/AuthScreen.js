@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import { TextButton } from '../../components/Button';
 import { NormalText, BoldText } from '../../components/Text';
+import { ProjectPlaceHolder } from '../../components/Project';
 
 const styles = StyleSheet.create({
   container: {
@@ -130,8 +131,36 @@ class AuthScreen extends React.Component {
             <View style={{
               flex: 3/4,
             }}>
-              <Animated.View style={{
+              <ProjectPlaceHolder style={{
                 // flex: 1,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                margin: 5,
+                backgroundColor: 'rgba(75, 78, 91, 1)',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                width: 250,
+                height: 60,
+                borderRadius: 8,
+                // borderWidth: 1,
+                // borderColor: '#1CBFB5',
+                // shadowColor: '#1CBFB5',
+                // shadowOffset: {
+                //   width: 0,
+                //   height: 4
+                // },
+                // shadowRadius: 8,
+                // shadowOpacity: 0.2,
+                transform: [{ scale: marginTopAnim.interpolate({
+                  inputRange: [0, 0.2, 0.8, 1],
+                  outputRange: [0, 0.6, 0.8, 1]
+                }) }]
+                // transform: [{ scale: marginTopAnim.interpolate({
+                //   inputRange: [0, 0.2, 0.8, 1],
+                //   outputRange: [1, 0.6, 2, 1]
+                // }) }]
+              }} />
+              <Animated.View style={{
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 margin: 5,
@@ -140,20 +169,91 @@ class AuthScreen extends React.Component {
                 alignItems: 'center',
                 width: 250,
                 height: 60,
-                borderRadius: 8,
-                borderWidth: 1,
-                borderColor: '#1CBFB5',
-                shadowColor: '#000',
+                borderRadius: 10,
+                shadowColor: '#555',
                 shadowOffset: {
                   width: 0,
-                  height: 4
+                  height: 3
                 },
-                shadowRadius: 8,
-                shadowOpacity: 0,
-                transform: [{ scale: marginTopAnim.interpolate({
+                shadowRadius: 10,
+                shadowOpacity: 0.2,
+                // marginBottom: marginTopAnim2.interpolate({
+                //   inputRange: [0, 0.2, 0.8, 1],
+                //   outputRange: [20, 10, 5, 0]
+                // }),
+                transform: [{ scale: marginTopAnim2.interpolate({
                   inputRange: [0, 0.2, 0.8, 1],
                   outputRange: [0, 0.6, 0.8, 1]
                 }) }]
+              }}>
+                <View
+                  style={{
+                    flex: 0.8,
+                    flexDirection: 'column',
+                    flexWrap: 'wrap',
+                    // flexBasis: 70,
+                    backgroundColor: 'transparent',
+                    width: 50,
+                    height: 40,
+                  }}
+                >
+                  <View
+                    style={{
+                      flex: 0.5,
+                      backgroundColor: '#2196F3',
+                      width: 150,
+                      height: 15,
+                      margin: 4,
+                      borderRadius: 8,
+                    }}
+                  />
+                  <View
+                    style={{
+                      flex: 0.5,
+                      backgroundColor: '#96caff',
+                      width: 50,
+                      height: 15,
+                      margin: 4,
+                      borderRadius: 8,
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    // flex: 0.3,
+                    // flexBasis: 30,
+                    backgroundColor: '#5daeff',
+                    width: 40,
+                    height: 40,
+                    borderRadius: 8,
+                  }}
+                />
+              </Animated.View>
+              <Animated.View style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                margin: 5,
+                backgroundColor: 'rgba(216, 216, 216, 0.05)',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                width: 250,
+                height: 60,
+                borderRadius: 10,
+                shadowColor: '#555',
+                shadowOffset: {
+                  width: 0,
+                  height: 3
+                },
+                shadowRadius: 10,
+                shadowOpacity: 0.2,
+                transform: [{ scale: marginTopAnim3.interpolate({
+                  inputRange: [0, 0.2, 0.8, 1],
+                  outputRange: [0, 0.6, 0.8, 1]
+                }) }]
+                // marginTop: marginTopAnim.interpolate({
+                //   inputRange: [0, 0.2, 0.8, 1],
+                //   outputRange: [20, 10, 5, 0]
+                // }),
                 // transform: [{ scale: marginTopAnim.interpolate({
                 //   inputRange: [0, 0.2, 0.8, 1],
                 //   outputRange: [1, 0.6, 2, 1]
@@ -201,80 +301,6 @@ class AuthScreen extends React.Component {
                     }}
                   />
                 </View>
-              </Animated.View>
-              <Animated.View style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                margin: 5,
-                backgroundColor: 'rgba(216, 216, 216, 0.05)',
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                width: 250,
-                height: 60,
-                borderRadius: 10,
-                shadowColor: '#555',
-                shadowOffset: {
-                  width: 0,
-                  height: 3
-                },
-                shadowRadius: 10,
-                shadowOpacity: 0.2,
-                // marginBottom: marginTopAnim2.interpolate({
-                //   inputRange: [0, 0.2, 0.8, 1],
-                //   outputRange: [20, 10, 5, 0]
-                // }),
-                transform: [{ scale: marginTopAnim2.interpolate({
-                  inputRange: [0, 0.2, 0.8, 1],
-                  outputRange: [0, 0.6, 0.8, 1]
-                }) }]
-              }}>
-                <View
-                  style={{
-                    backgroundColor: '#2196F3',
-                    width: 40,
-                    height: 40,
-                    borderRadius: 10,
-                  }}
-                />
-              </Animated.View>
-              <Animated.View style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                margin: 5,
-                backgroundColor: 'rgba(216, 216, 216, 0.05)',
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                width: 250,
-                height: 60,
-                borderRadius: 10,
-                shadowColor: '#555',
-                shadowOffset: {
-                  width: 0,
-                  height: 3
-                },
-                shadowRadius: 10,
-                shadowOpacity: 0.2,
-                transform: [{ scale: marginTopAnim3.interpolate({
-                  inputRange: [0, 0.2, 0.8, 1],
-                  outputRange: [0, 0.6, 0.8, 1]
-                }) }]
-                // marginTop: marginTopAnim.interpolate({
-                //   inputRange: [0, 0.2, 0.8, 1],
-                //   outputRange: [20, 10, 5, 0]
-                // }),
-                // transform: [{ scale: marginTopAnim.interpolate({
-                //   inputRange: [0, 0.2, 0.8, 1],
-                //   outputRange: [1, 0.6, 2, 1]
-                // }) }]
-              }}>
-                <View
-                  style={{
-                    backgroundColor: '#2196F3',
-                    width: 40,
-                    height: 40,
-                    borderRadius: 10,
-                  }}
-                />
               </Animated.View>
             </View>
           </View>
