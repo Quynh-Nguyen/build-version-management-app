@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   container: {
-    color: '#FFF',
+    color: '#00bafb',
     fontWeight: 'bold',
   },
 });

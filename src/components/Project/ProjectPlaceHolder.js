@@ -8,7 +8,7 @@ const ProjectPlaceHolder = ({ ...rest }) => {
         style={{
           // flex: 0.3,
           // flexBasis: 30,
-          backgroundColor: '#5daeff',
+          backgroundColor: '#00bafb',
           width: 40,
           height: 40,
           borderRadius: 8,

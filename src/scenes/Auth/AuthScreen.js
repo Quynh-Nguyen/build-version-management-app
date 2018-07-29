@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, StatusBar, FlatList, Easing, Animated } from 'react-native';
 import Swiper from 'react-native-swiper';
 import moment from 'moment';
+import { LinearGradient } from 'expo';
 
 import { TextButton } from '../../components/Button';
 import { NormalText, BoldText } from '../../components/Text';
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#434756',
+    backgroundColor: '#141e29',
   },
   slide: {
     flex: 1,
@@ -43,7 +44,21 @@ const styles = StyleSheet.create({
     flex: 0.15,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5
+  },
+  buttonText: {
+    fontSize: 18,
+    fontFamily: 'Gill Sans',
+    textAlign: 'center',
+    margin: 10,
+    color: '#ffffff',
+    backgroundColor: 'transparent',
+  },
 });
 
 class AuthScreen extends React.Component {
@@ -109,7 +124,20 @@ class AuthScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <StatusBar barStyle='dark-content' />
+        <LinearGradient
+          colors={['rgba(7,46,89,0.8)', 'transparent']}
+          start={[0, 0]}
+          end={[1, 1]}
+          location={[0.25, 0.6, 1]}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            height: '100%',
+          }}
+        />
+        <StatusBar barStyle='light-content' />
         <Swiper style={styles.wrapper}
           dot={<View style={styles.dot} />}
           activeDot={<View style={styles.active_dot} />}
@@ -136,7 +164,7 @@ class AuthScreen extends React.Component {
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 margin: 5,
-                backgroundColor: 'rgba(75, 78, 91, 1)',
+                backgroundColor: 'rgba(216, 216, 216, 0.05)',
                 justifyContent: 'space-around',
                 alignItems: 'center',
                 width: 250,
@@ -222,14 +250,15 @@ class AuthScreen extends React.Component {
                   style={{
                     // flex: 0.3,
                     // flexBasis: 30,
-                    backgroundColor: '#5daeff',
+                    backgroundColor: '#00bafb',
                     width: 40,
                     height: 40,
                     borderRadius: 8,
                   }}
                 />
               </Animated.View>
-              <Animated.View style={{
+              <ProjectPlaceHolder style={{
+                // flex: 1,
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 margin: 5,
@@ -238,70 +267,25 @@ class AuthScreen extends React.Component {
                 alignItems: 'center',
                 width: 250,
                 height: 60,
-                borderRadius: 10,
-                shadowColor: '#555',
-                shadowOffset: {
-                  width: 0,
-                  height: 3
-                },
-                shadowRadius: 10,
-                shadowOpacity: 0.2,
+                borderRadius: 8,
+                // borderWidth: 1,
+                // borderColor: '#1CBFB5',
+                // shadowColor: '#1CBFB5',
+                // shadowOffset: {
+                //   width: 0,
+                //   height: 4
+                // },
+                // shadowRadius: 8,
+                // shadowOpacity: 0.2,
                 transform: [{ scale: marginTopAnim3.interpolate({
                   inputRange: [0, 0.2, 0.8, 1],
                   outputRange: [0, 0.6, 0.8, 1]
                 }) }]
-                // marginTop: marginTopAnim.interpolate({
-                //   inputRange: [0, 0.2, 0.8, 1],
-                //   outputRange: [20, 10, 5, 0]
-                // }),
                 // transform: [{ scale: marginTopAnim.interpolate({
                 //   inputRange: [0, 0.2, 0.8, 1],
                 //   outputRange: [1, 0.6, 2, 1]
                 // }) }]
-              }}>
-                <View
-                  style={{
-                    // flex: 0.3,
-                    // flexBasis: 30,
-                    backgroundColor: '#5daeff',
-                    width: 40,
-                    height: 40,
-                    borderRadius: 8,
-                  }}
-                />
-                <View
-                  style={{
-                    flex: 0.8,
-                    flexDirection: 'column',
-                    flexWrap: 'wrap',
-                    // flexBasis: 70,
-                    backgroundColor: 'transparent',
-                    width: 50,
-                    height: 40,
-                  }}
-                >
-                  <View
-                    style={{
-                      flex: 0.5,
-                      backgroundColor: '#2196F3',
-                      width: 150,
-                      height: 15,
-                      margin: 4,
-                      borderRadius: 8,
-                    }}
-                  />
-                  <View
-                    style={{
-                      flex: 0.5,
-                      backgroundColor: '#96caff',
-                      width: 50,
-                      height: 15,
-                      margin: 4,
-                      borderRadius: 8,
-                    }}
-                  />
-                </View>
-              </Animated.View>
+              }} />
             </View>
           </View>
           <View style={styles.slide}>
@@ -323,7 +307,7 @@ class AuthScreen extends React.Component {
                 flexDirection: 'column',
                 flexWrap: 'wrap',
                 margin: 5,
-                backgroundColor: 'rgba(75, 78, 91, 1)',
+                backgroundColor: 'rgba(216, 216, 216, 0.05)',
                 justifyContent: 'space-around',
                 alignItems: 'center',
                 width: 250,
