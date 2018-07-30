@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, View, Text, StatusBar, FlatList, Easing, Animated } from 'react-native';
 import Swiper from 'react-native-swiper';
 import moment from 'moment';
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class AuthScreen extends React.Component {
+class AuthScreenx extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -121,6 +122,7 @@ class AuthScreen extends React.Component {
 
   render() {
     const { marginTopAnim, marginTopAnim2, marginTopAnim3 } = this.state;
+    const { getStarted } = this.props;
 
     return (
       <View style={styles.container}>
@@ -340,7 +342,7 @@ class AuthScreen extends React.Component {
           </View>
         </Swiper>
         <View style={styles.bottom}>
-          <TextButton raised={true} primary={true} upperCase={false} text='Get Started'/>
+          <TextButton raised={true} primary={true} upperCase={false} onPress={getStarted} text='Get Started'/>
           <TextButton upperCase={false} text='Sign In'/>
         </View>
       </View>
@@ -348,4 +350,14 @@ class AuthScreen extends React.Component {
   }
 }
 
-export { AuthScreen }
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch => ({
+  getStarted: () => dispatch({ type: 'GET_STARTED' }),
+});
+
+const AuthScreen = connect(mapStateToProps, mapDispatchToProps)(AuthScreenx);
+
+export { AuthScreen };
