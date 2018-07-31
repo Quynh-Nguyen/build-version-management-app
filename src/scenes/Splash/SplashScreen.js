@@ -26,7 +26,6 @@ class SplashScreen extends React.Component {
 
   _bootstrapAsync = async() => {
     const { navigation } = this.props
-    console.log('test');
     const userToken = await AsyncStorage.getItem('userToken');
     console.log('userToken', userToken);
     console.log('this.props.navigation', navigation);

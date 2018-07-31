@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import { AuthScreen } from '../scenes/Auth';
+import { LoginScreen } from '../scenes/Login';
 
 const AuthNavigator = createStackNavigator({
   Auth: {
@@ -9,6 +10,9 @@ const AuthNavigator = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
 
     })
+  },
+  Login: {
+    screen: LoginScreen
   }
 }, {
    headerMode: 'none',

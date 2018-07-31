@@ -14,7 +14,6 @@ export default(state = initialState, action) => {
       );
       break;
     case 'GET_STARTED':
-      console.log('GET_STARTED');
       nextState = AuthNavigator.router.getStateForAction(
         NavigationActions.navigate({ routeName: 'Login' }),
         state
@@ -25,6 +24,7 @@ export default(state = initialState, action) => {
       break;
   }
 
+  console.log('nextState', nextState);
   // Simply return the original `state` if `nextState` is null or undefined.
   return nextState || state;
 };
