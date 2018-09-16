@@ -11,11 +11,11 @@ import {
 } from 'react-navigation-redux-helpers';
 
 import rootReducer from '../reducers';
-import { appMiddleware } from '../navigators';
+// import { appMiddleware } from '../navigators';
 
 const enhancer = compose(
   applyMiddleware(
-    appMiddleware,
+    // appMiddleware,
   ),
 )
 

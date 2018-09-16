@@ -1,30 +1,27 @@
 import { NavigationActions } from 'react-navigation';
 
 import { AuthNavigator } from '../navigators';
+import NavStore from '../store/NavStore'
 
-const initialState = AuthNavigator.router.getStateForAction(NavigationActions.init());
+const firstAction = AuthNavigator.router.getActionForPathAndParams('Auth');
+const tempNavState = AuthNavigator.router.getStateForAction(firstAction);
+const secondAction = AuthNavigator.router.getActionForPathAndParams('Auth');
+const initialState = AuthNavigator.router.getStateForAction(
+  secondAction,
+  tempNavState
+);
 
 export default(state = initialState, action) => {
   let nextState;
   switch (action.type) {
-    case 'Login':
-      nextState = AuthNavigator.router.getStateForAction(
-        NavigationActions.back(),
-        state
-      );
-      break;
     case 'GET_STARTED':
-      nextState = AuthNavigator.router.getStateForAction(
-        NavigationActions.navigate({ routeName: 'Login' }),
-        state
-      );
+      NavStore.pushToScreen('LoginNavigator')
       break;
     default:
       nextState = AuthNavigator.router.getStateForAction(action, state);
       break;
   }
 
-  console.log('nextState', nextState);
   // Simply return the original `state` if `nextState` is null or undefined.
   return nextState || state;
 };

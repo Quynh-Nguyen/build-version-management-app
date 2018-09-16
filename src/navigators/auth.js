@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import { AuthScreen } from '../scenes/Auth';
-import { LoginScreen } from '../scenes/Login';
+import { LoginNavigator } from './login';
 
 const AuthNavigator = createStackNavigator({
   Auth: {
@@ -11,12 +11,13 @@ const AuthNavigator = createStackNavigator({
 
     })
   },
-  Login: {
-    screen: LoginScreen
+  LoginNavigator: {
+    screen: LoginNavigator
   }
 }, {
    headerMode: 'none',
    initialRouteName: 'Auth',
+   mode: 'modal',
 });
 
 export { AuthNavigator }

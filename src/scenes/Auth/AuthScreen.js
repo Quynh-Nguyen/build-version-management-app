@@ -116,10 +116,6 @@ class AuthScreenx extends React.Component {
     ]).start();
   }
 
-  static navigationOptions = {
-    title: 'Please sign in',
-  };
-
   render() {
     const { marginTopAnim, marginTopAnim2, marginTopAnim3 } = this.state;
     const { getStarted } = this.props;
