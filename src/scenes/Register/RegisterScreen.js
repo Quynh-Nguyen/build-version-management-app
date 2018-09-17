@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 
 const marginTop = LayoutUtils.getExtraTop()
 
-class LoginScreenClass extends React.Component {
+class RegisterScreenClass extends React.Component {
 
   constructor(props) {
     super(props);
@@ -68,7 +68,7 @@ class LoginScreenClass extends React.Component {
 
   render() {
     const { secureTextEntry } = this.state
-    const { goBack, signIn, signUp } = this.props
+    const { goBack, signIn } = this.props
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -100,14 +100,15 @@ class LoginScreenClass extends React.Component {
           <View style={styles.content}>
             <View style={styles.inputContent}>
               <View style={styles.top}>
-                <EntryButton text='Sign Up' onPress={signUp} isActive={false} />
-                <EntryButton text='Sign In' isActive={true} />
+                <EntryButton text='Sign Up' isActive={true} />
+                <EntryButton text='Sign In' onPress={signIn} isActive={false} />
               </View>
+              <TextInput label='Name' text=''/>
               <TextInput label='Email' text=''/>
               <TextInput label='Password' secureTextEntry={secureTextEntry}/>
               <View style={styles.bottom}>
-                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={signIn} text='Sign In'/>
-                <TextButton upperCase={false} text='Forgot Password?'/>
+                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={signIn} text='Sign Up'/>
+                <TextButton upperCase={false} text='Term and privacy'/>
               </View>
             </View>
           </View>
@@ -123,10 +124,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => dispatch({ type: 'GO_BACK' }),
-  signIn: () => dispatch({ type: 'GO_BACK' }),
-  signUp: () => dispatch({ type: 'REGISTER' }),
+  signIn: () => dispatch({ type: 'LOGIN' }),
 })
 
-const LoginScreen = connect(mapStateToProps, mapDispatchToProps)(LoginScreenClass)
+const RegisterScreen = connect(mapStateToProps, mapDispatchToProps)(RegisterScreenClass)
 
-export { LoginScreen };
+export { RegisterScreen };

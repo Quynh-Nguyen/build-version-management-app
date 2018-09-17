@@ -1,0 +1,1 @@
+export { MasterStyle } from './MasterStyle'

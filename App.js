@@ -9,7 +9,7 @@ import store from './src/store';
 
 const uiTheme = {
   palette: {
-    primaryColor: '#00bafb',
+    primaryColor: '#3D5AFE',
   },
   toolbar: {
     container: {
@@ -18,7 +18,7 @@ const uiTheme = {
   },
   button: {
     text: {
-      color: '#00bafb'
+      color: '#3D5AFE'
     }
   }
 };

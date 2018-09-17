@@ -5,7 +5,7 @@ import Swiper from 'react-native-swiper';
 import moment from 'moment';
 import { LinearGradient } from 'expo';
 
-import { TextButton } from '../../components/Button';
+import { TextButton, PrimaryButton } from '../../components/Button';
 import { NormalText, BoldText } from '../../components/Text';
 import { ProjectPlaceHolder, ProjectDetailPlaceHolder } from '../../components/Project';
 
@@ -338,7 +338,7 @@ class AuthScreenx extends React.Component {
           </View>
         </Swiper>
         <View style={styles.bottom}>
-          <TextButton raised={true} primary={true} upperCase={false} onPress={getStarted} text='Get Started'/>
+          <PrimaryButton raised={true} primary={true} upperCase={false} onPress={getStarted} text='GET STARTED'/>
           <TextButton upperCase={false} text='Sign In'/>
         </View>
       </View>

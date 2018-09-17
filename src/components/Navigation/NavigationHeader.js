@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 import { Images } from '../../utils'
-// import AppStyle from '../../commons/AppStyle'
+import { MasterStyle } from '../../styles'
 
 class NavigationHeader extends Component {
   static propTypes = {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     fontSize: 20,
-    // color: AppStyle.mainTextColor,
+    color: MasterStyle.mainTextColor,
     // fontFamily: 'OpenSans-Bold'
   },
   rightView: {
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   rightTitle: {
     // fontFamily: 'OpenSans-Semibold',
     fontSize: 18,
-    // color: AppStyle.mainColor,
+    color: MasterStyle.mainColor,
     marginLeft: 4
   }
 })

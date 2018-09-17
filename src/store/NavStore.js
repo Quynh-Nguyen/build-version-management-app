@@ -4,6 +4,7 @@ import { NavigationActions } from 'react-navigation'
 
 // gets the current screen from navigation state
 function getCurrentRouteName(navigationState) {
+  console.log('getCurrentRouteName', navigationState)
   if (!navigationState) {
     return null
   }
