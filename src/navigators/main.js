@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
-import { MainScreen } from '../scenes/Main';
+import { MainScreen } from '../containers/Main';
 
 const MainNavigator = createStackNavigator({
   Main: {

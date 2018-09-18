@@ -21,10 +21,10 @@ export default(state = initialState, action) => {
     case 'GO_BACK':
       NavStore.goBack()
       break;
-    case 'LOGIN':
+    case 'LOGIN_GOTO':
         NavStore.pushToScreen('Login')
         break;
-    case 'REGISTER':
+    case 'REGISTER_GOTO':
       NavStore.pushToScreen('Register')
       break;
     default:

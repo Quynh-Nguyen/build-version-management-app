@@ -10,6 +10,7 @@ import {
   Animated,
   SafeAreaView,
   Button,
+  AsyncStorage,
 } from 'react-native';
 import { LinearGradient } from 'expo'
 
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
 
 const marginTop = LayoutUtils.getExtraTop()
 
-class RegisterScreenClass extends React.Component {
+class LoginScreenClass extends React.Component {
 
   constructor(props) {
     super(props);
@@ -66,9 +67,13 @@ class RegisterScreenClass extends React.Component {
     }
   }
 
+  signIn = async() => {
+    await AsyncStorage.setItem('userToken', 'X')
+  }
+
   render() {
     const { secureTextEntry } = this.state
-    const { goBack, signIn } = this.props
+    const { goBack, signUp } = this.props
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -100,15 +105,14 @@ class RegisterScreenClass extends React.Component {
           <View style={styles.content}>
             <View style={styles.inputContent}>
               <View style={styles.top}>
-                <EntryButton text='Sign Up' isActive={true} />
-                <EntryButton text='Sign In' onPress={signIn} isActive={false} />
+                <EntryButton text='Sign Up' onPress={signUp} isActive={false} />
+                <EntryButton text='Sign In' isActive={true} />
               </View>
-              <TextInput label='Name' text=''/>
               <TextInput label='Email' text=''/>
               <TextInput label='Password' secureTextEntry={secureTextEntry}/>
               <View style={styles.bottom}>
-                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={signIn} text='Sign Up'/>
-                <TextButton upperCase={false} text='Term and privacy'/>
+                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={this.signIn} text='Sign In'/>
+                <TextButton upperCase={false} text='Forgot Password?'/>
               </View>
             </View>
           </View>
@@ -124,9 +128,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => dispatch({ type: 'GO_BACK' }),
-  signIn: () => dispatch({ type: 'LOGIN' }),
+  // signIn: () => dispatch({ type: 'SIGNIN' }),
+  signUp: () => dispatch({ type: 'REGISTER_GOTO' }),
 })
 
-const RegisterScreen = connect(mapStateToProps, mapDispatchToProps)(RegisterScreenClass)
+const LoginScreen = connect(mapStateToProps, mapDispatchToProps)(LoginScreenClass)
 
-export { RegisterScreen };
+export { LoginScreen };
