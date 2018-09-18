@@ -22,7 +22,12 @@
     - [Yarn](https://yarnpkg.com/en/docs/install)
     - [NVM](https://github.com/creationix/nvm)
 * Install react native: [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html)
-* Go to root project and install module packages: `npm install` or `yarn`
+* Go to root project and install module packages:
+
+```
+npm install
+# or
+yarn```
 
 ### Running
 * At root project use command:
