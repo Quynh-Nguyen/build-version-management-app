@@ -27,7 +27,8 @@
 ```
 npm install
 # or
-yarn```
+yarn
+```
 
 ### Running
 * At root project use command:
