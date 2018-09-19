@@ -69,6 +69,7 @@ class LoginScreenClass extends React.Component {
 
   signIn = async() => {
     await AsyncStorage.setItem('userToken', 'X')
+    console.log('DKM')
   }
 
   render() {

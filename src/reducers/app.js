@@ -2,17 +2,13 @@ import { NavigationActions } from 'react-navigation';
 
 import { AppNavigator } from '../navigators';
 
-console.log('Sai CMNR')
 const firstAction = AppNavigator.router.getActionForPathAndParams('Splash');
 const tempNavState = AppNavigator.router.getStateForAction(firstAction);
-console.log('tempNavState', tempNavState);
 const secondAction = AppNavigator.router.getActionForPathAndParams('Splash');
 const initialNavState = AppNavigator.router.getStateForAction(
   secondAction,
   tempNavState
 );
-
-console.log('initialNavState', initialNavState);
 
 export default(state = initialNavState, action) => {
   let nextState;

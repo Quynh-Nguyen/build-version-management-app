@@ -28,6 +28,9 @@
   },
   "dependencies": {
     "expo": "^27.1.1",
+    "hoist-non-react-statics": "^3.0.1",
+    "invariant": "^2.2.4",
+    "lodash": "^4.17.11",
     "mobx": "^5.1.1",
     "mobx-react": "^5.2.8",
     "moment": "^2.22.2",
