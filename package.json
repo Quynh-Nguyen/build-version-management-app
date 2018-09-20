@@ -29,6 +29,7 @@
   "dependencies": {
     "expo": "^27.1.1",
     "hoist-non-react-statics": "^3.0.1",
+    "immutable": "^3.8.2",
     "invariant": "^2.2.4",
     "lodash": "^4.17.11",
     "mobx": "^5.1.1",
@@ -46,6 +47,8 @@
     "react-navigation": "^2.9.3",
     "react-navigation-redux-helpers": "^2.0.2",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1"
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { StyleSheet, View, Text, StatusBar, FlatList, Easing, Animated } from 'react-native';
 import Swiper from 'react-native-swiper';
 import moment from 'moment';
@@ -8,6 +9,10 @@ import { LinearGradient } from 'expo';
 import { TextButton, PrimaryButton } from '../../components/Button';
 import { NormalText, BoldText } from '../../components/Text';
 import { ProjectPlaceHolder, ProjectDetailPlaceHolder } from '../../components/Project';
+import injectReducer from '../../utils/injectReducer';
+import injectSaga from '../../utils/injectSaga';
+import reducer from './reducers';
+import saga from './saga';
 
 const styles = StyleSheet.create({
   container: {
@@ -354,6 +359,18 @@ const mapDispatchToProps = dispatch => ({
   getStarted: () => dispatch({ type: 'GET_STARTED' }),
 });
 
-const AuthScreen = connect(mapStateToProps, mapDispatchToProps)(AuthScreenx);
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+const withReducer = injectReducer({key: 'autheeeee', reducer});
+const withSaga = injectSaga({ key: 'autheeeee', saga });
+
+const AuthScreen = compose(
+  withReducer,
+  withSaga,
+  withConnect,
+)(AuthScreenx);
 
 export { AuthScreen };

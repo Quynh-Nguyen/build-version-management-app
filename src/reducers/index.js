@@ -1,8 +1,19 @@
 import { combineReducers } from 'redux';
-import auth from './auth';
 import globalReducer from './app';
 
-export default combineReducers({
+const rootReducer = combineReducers({
   global: globalReducer,
-  authNavigation: auth
-});
+  // authNavigation: auth
+})
+
+const createReducer = (injectedReducers) => {
+  return combineReducers({
+    global: globalReducer,
+    ...injectedReducers,
+  })
+}
+
+export {
+  rootReducer,
+  createReducer,
+}

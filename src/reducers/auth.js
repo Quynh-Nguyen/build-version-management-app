@@ -1,18 +1,18 @@
 import { NavigationActions } from 'react-navigation';
 
-import { AuthNavigator } from '../navigators';
+// import { AuthNavigator } from '../navigators';
 import NavStore from '../store/NavStore'
 
-console.log('AuthNavigator', AuthNavigator)
-const firstAction = AuthNavigator.router.getActionForPathAndParams('Auth');
-const tempNavState = AuthNavigator.router.getStateForAction(firstAction);
-const secondAction = AuthNavigator.router.getActionForPathAndParams('Auth');
-const initialState = AuthNavigator.router.getStateForAction(
-  secondAction,
-  tempNavState
-);
+// console.log('AuthNavigator', AuthNavigator)
+// const firstAction = AuthNavigator.router.getActionForPathAndParams('Auth');
+// const tempNavState = AuthNavigator.router.getStateForAction(firstAction);
+// const secondAction = AuthNavigator.router.getActionForPathAndParams('Auth');
+// const initialState = AuthNavigator.router.getStateForAction(
+//   secondAction,
+//   tempNavState
+// );
 
-export default(state = initialState, action) => {
+export default(state = {}, action) => {
   let nextState;
   switch (action.type) {
     case 'GET_STARTED':
@@ -28,7 +28,7 @@ export default(state = initialState, action) => {
       NavStore.pushToScreen('Register')
       break;
     default:
-      nextState = AuthNavigator.router.getStateForAction(action, state);
+      // nextState = AuthNavigator.router.getStateForAction(action, state);
       break;
   }
 

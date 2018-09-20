@@ -1,26 +1,25 @@
 import { NavigationActions } from 'react-navigation';
+import { fromJS } from 'immutable';
 
 import { AppNavigator } from '../navigators';
 
-const firstAction = AppNavigator.router.getActionForPathAndParams('Splash');
-const tempNavState = AppNavigator.router.getStateForAction(firstAction);
-const secondAction = AppNavigator.router.getActionForPathAndParams('Splash');
-const initialNavState = AppNavigator.router.getStateForAction(
-  secondAction,
-  tempNavState
-);
+const initialState = {
+  loading: false,
+  error: false,
+  currentUser: false,
+};
 
-export default(state = initialNavState, action) => {
+export default(state = initialState, action) => {
   let nextState;
   switch (action.type) {
     case 'MAIN':
-      nextState = AppNavigator.router.getStateForAction(
-        NavigationActions.navigate({ routeName: 'Main' }),
-        state
-      );
+      // nextState = AppNavigator.router.getStateForAction(
+      //   NavigationActions.navigate({ routeName: 'Main' }),
+      //   state
+      // );
       break;
     default:
-      nextState = AppNavigator.router.getStateForAction(action, state);
+      // nextState = AppNavigator.router.getStateForAction(action, state);
       break;
   }
 

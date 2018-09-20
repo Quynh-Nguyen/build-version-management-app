@@ -9,20 +9,29 @@ import {
   createReduxBoundAddListener,
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
+import createSagaMiddleware from 'redux-saga';
 
-import rootReducer from '../reducers';
+const sagaMiddleware = createSagaMiddleware();
+
+import { rootReducer, createReducer } from '../reducers';
 // import { appMiddleware } from '../navigators';
 
-const enhancer = compose(
+const middlewares = [sagaMiddleware];
+
+const enhancers = compose(
   applyMiddleware(
-    // appMiddleware,
+    ...middlewares
   ),
 )
 
 const store = createStore(
-  rootReducer,
-  enhancer
+  createReducer(),
+  enhancers
 )
-console.log('store', store)
+
+// Extensions
+store.runSaga = sagaMiddleware.run;
+store.injectedReducers = {}; // Reducer registry
+store.injectedSagas = {}; // Saga registry
 
 export default store

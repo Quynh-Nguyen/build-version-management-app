@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +11,15 @@ const styles = StyleSheet.create({
 });
 
 class MainScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this._bootstrapAsync();
+  }
+
+  _bootstrapAsync = async() => {
+    const userToken = await AsyncStorage.removeItem('userToken');
+  }
+
   render() {
     return (
       <View style={styles.container}>
