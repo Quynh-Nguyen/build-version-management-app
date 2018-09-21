@@ -45,6 +45,7 @@ const Images = {
   imgDeletePin: require('./../assets/images/ic_delete_pin.png'),
   imageThumb: require('./../assets/images/Oval.png'),
   logoGolden: require('./../assets/images/logo_golden.png'),
+  logo: require('./../assets/images/logo.png'),
   circleLoading: require('./../assets/images/circle_loading.png'),
   loadingLogo: require('./../assets/images/loading_logo.png'),
   backgroundActionButton: require('./../assets/images/background_action_button.png'),

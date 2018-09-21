@@ -10,6 +10,7 @@ import {
   Animated,
   SafeAreaView,
   Button,
+  Image,
 } from 'react-native';
 import { LinearGradient } from 'expo'
 
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     flex: 0.3,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -51,6 +53,11 @@ const styles = StyleSheet.create({
   bottom: {
     flex: 0.5,
     paddingTop: 32,
+  },
+  logoIcon: {
+    flex: 0.5,
+    width: 150,
+    height: 150,
   },
 })
 
@@ -96,6 +103,11 @@ class RegisterScreenClass extends React.Component {
         />
         <SafeAreaView style={styles.wrapper}>
           <View style={styles.logo}>
+            <Image
+              resizeMode={'contain'}
+              style={styles.logoIcon}
+              source={Images.logo}
+            />
           </View>
           <View style={styles.content}>
             <View style={styles.inputContent}>

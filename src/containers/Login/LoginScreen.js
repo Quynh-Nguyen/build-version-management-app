@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   Button,
   AsyncStorage,
+  Image,
 } from 'react-native';
 import { LinearGradient } from 'expo'
 
@@ -19,6 +20,7 @@ import { LayoutUtils } from '../../utils'
 import { Images } from '../../utils'
 import { TextInputCustom as TextInput } from '../../components/Input'
 import { PrimaryButton, TextButton, EntryButton } from '../../components/Button'
+import { login } from '../Auth/actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,6 +32,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     flex: 0.3,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -53,6 +56,11 @@ const styles = StyleSheet.create({
     flex: 0.5,
     paddingTop: 32,
   },
+  logoIcon: {
+    flex: 0.5,
+    width: 150,
+    height: 150,
+  },
 })
 
 const marginTop = LayoutUtils.getExtraTop()
@@ -67,14 +75,14 @@ class LoginScreenClass extends React.Component {
     }
   }
 
-  signIn = async() => {
-    await AsyncStorage.setItem('userToken', 'X')
-    console.log('DKM')
-  }
+  // signIn = async() => {
+  //   await AsyncStorage.setItem('userToken', 'X')
+  //   console.log('DKM')
+  // }
 
   render() {
     const { secureTextEntry } = this.state
-    const { goBack, signUp } = this.props
+    const { goBack, signIn, signUp } = this.props
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -102,6 +110,11 @@ class LoginScreenClass extends React.Component {
         />
         <SafeAreaView style={styles.wrapper}>
           <View style={styles.logo}>
+            <Image
+              resizeMode={'contain'}
+              style={styles.logoIcon}
+              source={Images.logo}
+            />
           </View>
           <View style={styles.content}>
             <View style={styles.inputContent}>
@@ -112,7 +125,7 @@ class LoginScreenClass extends React.Component {
               <TextInput label='Email' text=''/>
               <TextInput label='Password' secureTextEntry={secureTextEntry}/>
               <View style={styles.bottom}>
-                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={this.signIn} text='Sign In'/>
+                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={signIn} text='Sign In'/>
                 <TextButton upperCase={false} text='Forgot Password?'/>
               </View>
             </View>
@@ -129,7 +142,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => dispatch({ type: 'GO_BACK' }),
-  // signIn: () => dispatch({ type: 'SIGNIN' }),
+  signIn: () => dispatch(login({email: 'test', password: 'xxxx'})),
   signUp: () => dispatch({ type: 'REGISTER_GOTO' }),
 })
 

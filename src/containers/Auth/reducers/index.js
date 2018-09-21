@@ -21,6 +21,9 @@ export default(state = initialState, action) => {
     case 'REGISTER_GOTO':
       NavStore.pushToScreen('Register')
       break;
+    case 'LOGIN_SUCCEED':
+      NavStore.pushToScreen('Main')
+      break;
     default:
       // nextState = AuthNavigator.router.getStateForAction(action, state);
       break;
