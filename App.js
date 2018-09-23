@@ -5,11 +5,13 @@ import { COLOR, ThemeContext, getTheme } from 'react-native-material-ui';
 
 // import { AppNavigation } from './src/navigators';
 import Router from './src/routes'
-import store from './src/store';
+import store from './src/store'
+import ApiService from './src/utils/axios'
 
 const uiTheme = {
   palette: {
     primaryColor: '#3D5AFE',
+    secondaryTextColor: '#63647D',
   },
   toolbar: {
     container: {
@@ -19,13 +21,29 @@ const uiTheme = {
   button: {
     text: {
       color: '#3D5AFE'
-    }
-  }
+    },
+    icon: {
+      color: '#FFF'
+    },
+  },
+  bottomNavigationAction: {
+    iconActive: {
+      color: '#FFF',
+    },
+    labelActive: {
+      color: '#FFF',
+      fontSize: 12,
+    },
+    containerActive: {
+      paddingTop: 8,
+    },
+  },
 };
 
 export default class App extends React.Component {
   constructor(props) {
     super(props)
+    ApiService.init()
 
     this.state = {
       isAppReady: false,

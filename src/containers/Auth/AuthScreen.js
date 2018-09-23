@@ -364,8 +364,8 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({key: 'autheeeee', reducer});
-const withSaga = injectSaga({ key: 'autheeeee', saga });
+const withReducer = injectReducer({key: 'auth', reducer});
+const withSaga = injectSaga({ key: 'auth', saga });
 
 const AuthScreen = compose(
   withReducer,

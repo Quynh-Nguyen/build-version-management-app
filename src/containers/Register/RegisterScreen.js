@@ -13,6 +13,7 @@ import {
   Image,
 } from 'react-native';
 import { LinearGradient } from 'expo'
+import { EvilIcons } from '@expo/vector-icons'
 
 import { NavigationHeader } from '../../components/Navigation'
 import { LayoutUtils } from '../../utils'
@@ -76,6 +77,15 @@ class RegisterScreenClass extends React.Component {
   render() {
     const { secureTextEntry } = this.state
     const { goBack, signIn } = this.props
+
+    const imageIcon = (
+      <EvilIcons
+        name="spinner-3"
+        size={26}
+        color="white"
+      />
+    )
+
     return (
       <View style={styles.container}>
         <LinearGradient

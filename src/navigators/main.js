@@ -7,6 +7,9 @@ const MainNavigator = createStackNavigator({
   Main: {
     screen: MainScreen
   }
+}, {
+   headerMode: 'none',
+   initialRouteName: 'Main',
 });
 
 export { MainNavigator };

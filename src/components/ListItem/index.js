@@ -1,1 +1,2 @@
-export { ListItem } from './ListItem';
+export { ListItem } from './ListItem'
+export { HorizontalList } from './HorizontalList'

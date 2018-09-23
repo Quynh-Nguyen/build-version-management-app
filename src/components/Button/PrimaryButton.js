@@ -4,7 +4,10 @@ import { Button } from 'react-native-material-ui';
 import {
   StyleSheet,
   View,
+  Image,
 } from 'react-native';
+
+import { Images } from '../../utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -40,14 +43,21 @@ const styles = StyleSheet.create({
   },
 })
 
-const PrimaryButton = ({ text, onPress, ...rest }) => {
+const PrimaryButton = ({ text, onPress, icon, ...rest }) => {
+
   return (
     <View style={styles.container}>
       <View style={[styles.corner, styles.topLeft]} />
       <View style={[styles.corner, styles.topRight]} />
       <View style={[styles.corner, styles.bottomLeft]} />
       <View style={[styles.corner, styles.bottomRight]} />
-      <Button text={text} style={{container: {position: 'relative', borderRadius: 0, backgroundColor: 'transparent'} }} onPress={onPress} {...rest} />
+      <Button
+        icon={icon}
+        text={text}
+        style={{container: {position: 'relative', borderRadius: 0, backgroundColor: 'transparent'} }}
+        onPress={onPress}
+        {...rest}
+      />
     </View>
   )
 }
@@ -55,6 +65,10 @@ const PrimaryButton = ({ text, onPress, ...rest }) => {
 PrimaryButton.propTypes = {
   text: PropTypes.string.isRequired,
   onPress: PropTypes.func,
+  icon: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element
+  ]),
 }
 
 export { PrimaryButton }

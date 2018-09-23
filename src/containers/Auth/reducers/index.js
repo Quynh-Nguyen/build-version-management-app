@@ -1,10 +1,11 @@
-// import { NavigationActions } from 'react-navigation';
+import { fromJS } from 'immutable'
 
 import NavStore from '../../../store/NavStore'
 
-export const initialState = {
-  email: 'quynh.nn@terra-drone.co.jp'
-}
+export const initialState = fromJS({
+  loading: false,
+  error: false,
+})
 
 export default(state = initialState, action) => {
   let nextState;
@@ -21,6 +22,15 @@ export default(state = initialState, action) => {
     case 'REGISTER_GOTO':
       NavStore.pushToScreen('Register')
       break;
+    case 'LOGIN_REQUESTED':
+      return state
+        .set('loading', true)
+      break;
+    case 'LOGIN_FAILED':
+      return state
+        .set('loading', false)
+        .set('error', true)
+    break;
     case 'LOGIN_SUCCEED':
       NavStore.pushToScreen('Main')
       break;

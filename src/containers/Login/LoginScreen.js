@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import {
   StyleSheet,
   View,
@@ -14,13 +15,14 @@ import {
   Image,
 } from 'react-native';
 import { LinearGradient } from 'expo'
+import { EvilIcons } from '@expo/vector-icons'
 
 import { NavigationHeader } from '../../components/Navigation'
 import { LayoutUtils } from '../../utils'
 import { Images } from '../../utils'
 import { TextInputCustom as TextInput } from '../../components/Input'
 import { PrimaryButton, TextButton, EntryButton } from '../../components/Button'
-import { login } from '../Auth/actions';
+import { loginRequest } from '../Auth/actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -71,18 +73,31 @@ class LoginScreenClass extends React.Component {
     super(props);
 
     this.state = {
+      email: ``,
+      password: ``,
       secureTextEntry: true,
     }
   }
 
-  // signIn = async() => {
-  //   await AsyncStorage.setItem('userToken', 'X')
-  //   console.log('DKM')
-  // }
+  signIn = () => {
+    const { signIn } = this.props
+    const { email, password } = this.state
+    console.log('email, password', email, password)
+    signIn(email, password)
+  }
 
   render() {
-    const { secureTextEntry } = this.state
-    const { goBack, signIn, signUp } = this.props
+    const { secureTextEntry, email, password } = this.state
+    const { goBack, signUp, loading } = this.props
+
+    const imageIcon = (
+      <EvilIcons
+        name="spinner-3"
+        size={26}
+        color="white"
+      />
+    )
+
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -122,10 +137,19 @@ class LoginScreenClass extends React.Component {
                 <EntryButton text='Sign Up' onPress={signUp} isActive={false} />
                 <EntryButton text='Sign In' isActive={true} />
               </View>
-              <TextInput label='Email' text=''/>
-              <TextInput label='Password' secureTextEntry={secureTextEntry}/>
+              <TextInput
+                label='Email'
+                value={email}
+                onChange={(email) => this.setState({email})}
+                />
+              <TextInput
+                label='Password'
+                secureTextEntry={secureTextEntry}
+                value={password}
+                onChange={(password) => this.setState({password})}
+              />
               <View style={styles.bottom}>
-                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={signIn} text='Sign In'/>
+                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={this.signIn} text='Sign In' icon={loading ? imageIcon : ''}/>
                 <TextButton upperCase={false} text='Forgot Password?'/>
               </View>
             </View>
@@ -136,16 +160,26 @@ class LoginScreenClass extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-
-})
+const mapStateToProps = (state) => {
+  const loading = state.auth.get('loading')
+  return {
+    loading,
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => dispatch({ type: 'GO_BACK' }),
-  signIn: () => dispatch(login({email: 'test', password: 'xxxx'})),
+  signIn: (email,password) => dispatch(loginRequest({email,password})),
   signUp: () => dispatch({ type: 'REGISTER_GOTO' }),
 })
 
-const LoginScreen = connect(mapStateToProps, mapDispatchToProps)(LoginScreenClass)
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+const LoginScreen = compose(
+  withConnect,
+)(LoginScreenClass)
 
 export { LoginScreen };

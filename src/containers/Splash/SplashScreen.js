@@ -9,6 +9,8 @@ import {
   View,
   Text,
   } from 'react-native';
+import { Font } from 'expo';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +29,9 @@ class SplashScreen extends React.Component {
   _bootstrapAsync = async() => {
     const { navigation } = this.props
     const userToken = await AsyncStorage.getItem('userToken');
+    await Font.loadAsync({
+      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf')
+    })
     console.log('userToken', userToken);
     console.log('this.props.navigation', navigation);
 
