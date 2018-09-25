@@ -46,6 +46,7 @@ const HorizontalList = ({ children, title, number, ...rest }) => {
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
+          keyboardShouldPersistTaps="always"
         >
           {children}
         </ScrollView>

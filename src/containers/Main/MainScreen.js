@@ -89,16 +89,17 @@ class MainScreen extends React.Component {
             <H1Text>Welcome,</H1Text>
             <H1Text>to Maverapp</H1Text>
             <HorizontalList title="Project" number="4">
-              <ProjectCard text="SURVEY" icon="compare-arrows" number="5"/>
-              <ProjectCard text="ROOFER" icon="details" number="4"/>
-              <ProjectCard text="REFORM" icon="polymer" number="10"/>
-              <ProjectCard text="DATING CALLING" icon="favorite-border" number="15"/>
+              <ProjectCard text="PROJECT A" icon="compare-arrows" number="5"/>
+              <ProjectCard text="PROJECT B" icon="details" number="4"/>
+              <ProjectCard text="PROJECT C" icon="polymer" number="10"/>
+              <ProjectCard text="PROJECT D" icon="favorite-border" number="15"/>
             </HorizontalList>
             <HorizontalList title="Device" number="5">
               <ProjectCard text="iPhone 4" icon="compare-arrows" number="5"/>
               <ProjectCard text="iPhone 5" icon="details" number="4"/>
               <ProjectCard text="iPhone X" icon="polymer" number="10"/>
               <ProjectCard text="Samsung S9" icon="favorite-border" number="15"/>
+              <ProjectCard text="Samsung S8" icon="favorite-border" number="15"/>
             </HorizontalList>
           </View>
         </SafeAreaView>

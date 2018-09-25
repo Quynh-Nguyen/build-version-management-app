@@ -6,6 +6,8 @@ import {
   View,
   Image,
   Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native'
 import { Icon } from 'react-native-material-ui'
 
@@ -65,24 +67,30 @@ const styles = StyleSheet.create({
 const ProjectCard = ({ text, onPress, icon, number, ...rest }) => {
 
   return (
-    <View style={styles.container}>
-      <View style={styles.wrapper}>
-        <View style={styles.header}>
-          <View style={styles.icon}>
-            <Icon
-              name={icon}
-              color="#FFF"
-            />
-          </View>
-          <View style={styles.status}>
-            <View style={styles.dot}/>
+    <View style={{flex: 1, flexDirection: 'row'}}>
+      <TouchableOpacity
+        style={{flex: 1, flexDirection: 'row'}}
+      >
+        <View style={styles.container}>
+          <View style={styles.wrapper}>
+            <View style={styles.header}>
+              <View style={styles.icon}>
+                <Icon
+                  name={icon}
+                  color="#FFF"
+                />
+              </View>
+              <View style={styles.status}>
+                <View style={styles.dot}/>
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Text style={styles.text}>{text}</Text>
+              <Text style={styles.subText}>{number} verions</Text>
+            </View>
           </View>
         </View>
-        <View style={styles.content}>
-          <Text style={styles.text}>{text}</Text>
-          <Text style={styles.subText}>{number} verions</Text>
-        </View>
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }
