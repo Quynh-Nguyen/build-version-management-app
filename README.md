@@ -52,4 +52,5 @@ yarn
 
 ### Credits
 * Quynh Nguyen - likeguitarz@gmail.com
+* Hung Dang - hungqd
 * ... join with us
