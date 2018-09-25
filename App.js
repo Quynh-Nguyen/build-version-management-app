@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { COLOR, ThemeContext, getTheme } from 'react-native-material-ui';
 
+import "@babel/polyfill";
+
 // import { AppNavigation } from './src/navigators';
 import Router from './src/routes'
 import store from './src/store'
