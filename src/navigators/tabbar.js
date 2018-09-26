@@ -2,20 +2,21 @@ import React from 'react'
 import { createBottomTabNavigator } from 'react-navigation'
 import { Icon } from 'react-native-material-ui'
 
-import { DashboardScreen } from '../containers/Main';
+import { DashboardScreen } from '../containers/Main'
+import { ProjectListScreen } from '../containers/Project'
 
 const MainTabbarNavigator = createBottomTabNavigator({
   Dashboard: {
     screen: DashboardScreen,
   },
   Project: {
-    screen: DashboardScreen
+    screen: ProjectListScreen,
   },
   Device: {
-    screen: DashboardScreen
+    screen: DashboardScreen,
   },
   Settings: {
-    screen: DashboardScreen
+    screen: DashboardScreen,
   },
 }, {
   navigationOptions: ({ navigation }) => ({
