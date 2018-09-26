@@ -1,11 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
-import { MainScreen } from '../containers/Main';
+import { MainTabbarNavigator } from './tabbar';
 
 const MainNavigator = createStackNavigator({
   Main: {
-    screen: MainScreen
+    screen: MainTabbarNavigator
   }
 }, {
    headerMode: 'none',

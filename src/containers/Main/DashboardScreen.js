@@ -45,7 +45,7 @@ const stylesBottomNavigation = StyleSheet.create({
 
 const marginTop = LayoutUtils.getExtraTop()
 
-class MainScreen extends React.Component {
+class DashboardScreen extends React.Component {
   constructor(props) {
     super(props);
     // this._bootstrapAsync();
@@ -103,35 +103,9 @@ class MainScreen extends React.Component {
             </HorizontalList>
           </View>
         </SafeAreaView>
-        <BottomNavigation active={this.state.active} hidden={false} style={stylesBottomNavigation}>
-          <BottomNavigation.Action
-              key="dashboard"
-              icon="developer-board"
-              label="Dashboard"
-              onPress={() => this.setState({ active: 'dashboard' })}
-          />
-          <BottomNavigation.Action
-              key="project"
-              icon="developer-mode"
-              label="Project"
-              onPress={() => this.setState({ active: 'project' })}
-          />
-          <BottomNavigation.Action
-              key="device"
-              icon="phonelink-setup"
-              label="Device"
-              onPress={() => this.setState({ active: 'device' })}
-          />
-          <BottomNavigation.Action
-              key="settings"
-              icon="more-horiz"
-              label="Settings"
-              onPress={() => this.setState({ active: 'settings' })}
-          />
-        </BottomNavigation>
       </View>
     )
   }
 }
 
-export { MainScreen }
+export { DashboardScreen }
