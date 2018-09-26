@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dimensions} from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { StyleSheet, View, Text, StatusBar, FlatList, Easing, Animated } from 'react-native';
@@ -147,6 +148,7 @@ class AuthScreenx extends React.Component {
           paginationStyle={{
             bottom: 70
           }}
+          width={Dimensions.get('window').width}
           loop={true}>
           <View style={styles.slide}>
             <View style={{
