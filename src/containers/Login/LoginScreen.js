@@ -82,7 +82,6 @@ class LoginScreenClass extends React.Component {
   signIn = () => {
     const { signIn } = this.props
     const { email, password } = this.state
-    console.log('email, password', email, password)
     signIn(email, password)
   }
 

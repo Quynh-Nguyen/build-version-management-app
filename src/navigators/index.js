@@ -3,3 +3,4 @@ export { MainNavigator } from './main';
 export { AuthNavigator } from './auth';
 export { LoginNavigator } from './login';
 export { MainTabbarNavigator } from './tabbar'
+export { ProjectNavigator } from './project'

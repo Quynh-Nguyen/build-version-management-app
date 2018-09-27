@@ -64,12 +64,13 @@ const styles = StyleSheet.create({
   }
 })
 
-const ProjectCard = ({ text, onPress, icon, number, ...rest }) => {
+const ProjectCard = ({ text, icon, number, action, ...rest }) => {
 
   return (
     <View style={{flex: 1, flexDirection: 'row'}}>
       <TouchableOpacity
         style={{flex: 1, flexDirection: 'row'}}
+        onPress={() => { action() }}
       >
         <View style={styles.container}>
           <View style={styles.wrapper}>
@@ -97,11 +98,17 @@ const ProjectCard = ({ text, onPress, icon, number, ...rest }) => {
 
 ProjectCard.propTypes = {
   text: PropTypes.string.isRequired,
-  onPress: PropTypes.func,
+  action: PropTypes.func,
   icon: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element
   ]),
+}
+
+ProjectCard.defaultProps = {
+  action: () => {
+
+  }
 }
 
 export { ProjectCard }

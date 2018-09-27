@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 import {
   StyleSheet,
   View,
@@ -13,8 +15,15 @@ import { LinearGradient } from 'expo'
 import { NavigationHeader } from '../../components/Navigation'
 import { Images, LayoutUtils } from '../../utils'
 import { H1Text } from '../../components/Text'
-import { ProjectCard } from '../../components/Card'
+import { ProjectCard, DashboardSummaryCard } from '../../components/Card'
 import { HorizontalList } from '../../components/ListItem'
+import injectReducer from '../../utils/injectReducer'
+import injectSaga from '../../utils/injectSaga'
+import reducer from './reducers'
+import saga from './saga'
+import {
+  gotoProjectDetail,
+} from './actions'
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +54,7 @@ const stylesBottomNavigation = StyleSheet.create({
 
 const marginTop = LayoutUtils.getExtraTop()
 
-class DashboardScreen extends React.Component {
+class DashboardScreenClass extends React.Component {
   constructor(props) {
     super(props);
     // this._bootstrapAsync();
@@ -56,6 +65,12 @@ class DashboardScreen extends React.Component {
 
   _bootstrapAsync = async() => {
     const userToken = await AsyncStorage.removeItem('userToken');
+  }
+
+  onPressProjectCard = () => {
+    const { onPressProjectCard } = this.props
+
+    onPressProjectCard(1)
   }
 
   render() {
@@ -88,8 +103,9 @@ class DashboardScreen extends React.Component {
           <View style={styles.content}>
             <H1Text>Welcome,</H1Text>
             <H1Text>to Maverapp</H1Text>
+            <DashboardSummaryCard />
             <HorizontalList title="Project" number="4">
-              <ProjectCard text="PROJECT A" icon="compare-arrows" number="5"/>
+              <ProjectCard text="PROJECT A" icon="compare-arrows" number="5" action={this.onPressProjectCard}/>
               <ProjectCard text="PROJECT B" icon="details" number="4"/>
               <ProjectCard text="PROJECT C" icon="polymer" number="10"/>
               <ProjectCard text="PROJECT D" icon="favorite-border" number="15"/>
@@ -107,5 +123,31 @@ class DashboardScreen extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  const loading = state.main.get('loading')
+  return {
+    loading,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  goBack: () => dispatch({ type: 'GO_BACK' }),
+  onPressProjectCard: () => dispatch(gotoProjectDetail({projectId: 5})),
+})
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)
+
+const withReducer = injectReducer({key: 'main', reducer})
+const withSaga = injectSaga({ key: 'main', saga })
+
+const DashboardScreen = compose(
+  withReducer,
+  withConnect,
+  withConnect,
+)(DashboardScreenClass)
 
 export { DashboardScreen }

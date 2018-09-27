@@ -1,5 +1,4 @@
 const loginRequest = (payload) => {
-  console.log('loginRequest', payload)
   return {
     type: 'LOGIN_REQUESTED',
     payload: {

@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 
+import { CreateNewProjectCard } from '../Card'
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: 36,
@@ -46,16 +48,18 @@ const VerticalList = ({ children, title, number, ...rest }) => {
         <ScrollView
           contentContainerStyle={{
             // flexGrow: 1,
+            // flex: 1,
             flexWrap: 'wrap',
             alignItems: 'flex-start',
-            // justifyContent: 'flex-start',
+            justifyContent: 'space-between',
             // flexShrink: 1,
-            // flexDirection: 'row',
+            flexDirection: 'row',
           }}
           showsHorizontalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
         >
           {children}
+          <CreateNewProjectCard text="Create New Project"/>
         </ScrollView>
       </View>
     </View>

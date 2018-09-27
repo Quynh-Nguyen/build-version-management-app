@@ -14,7 +14,7 @@ import { Icon } from 'react-native-material-ui'
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderStyle: 'solid',
+    borderStyle: 'dashed',
     borderColor: '#3D5AFE',
     backgroundColor: '#0F1B37',
     borderRadius: 4,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    flex: 0.5,
+    flex: 1,
   },
   status: {
     flex: 0.5,
@@ -59,45 +59,28 @@ const styles = StyleSheet.create({
     color: '#B1BCFD',
     fontSize: 10,
     letterSpacing: 0.29,
-    marginLeft: 2,
-  },
-  subContent: {
-    flexDirection: 'row',
-    marginTop: 5,
-  },
+    paddingTop: 5,
+  }
 })
 
-const ProjectListCard = ({ text, action, icon, number, ...rest }) => {
-
+const CreateNewProjectCard = ({ text, onPress, icon, number, ...rest }) => {
   return (
     <View style={{flexBasis: '49%', flexDirection: 'row', marginBottom: 10}}>
       <TouchableOpacity
         style={{flex: 1, flexDirection: 'row'}}
-        onPress={() => { action() }}
       >
         <View style={styles.container}>
           <View style={styles.wrapper}>
             <View style={styles.header}>
               <View style={styles.icon}>
                 <Icon
-                  name={icon}
+                  name='add'
                   color="#FFF"
                 />
-              </View>
-              <View style={styles.status}>
-                <View style={styles.dot}/>
               </View>
             </View>
             <View style={styles.content}>
               <Text style={styles.text}>{text}</Text>
-              <View style={styles.subContent}>
-                <Icon
-                  name="play-arrow"
-                  color="#FFF"
-                  size={11}
-                />
-                <Text style={styles.subText}>{number} verions</Text>
-              </View>
             </View>
           </View>
         </View>
@@ -106,19 +89,13 @@ const ProjectListCard = ({ text, action, icon, number, ...rest }) => {
   )
 }
 
-ProjectListCard.propTypes = {
+CreateNewProjectCard.propTypes = {
   text: PropTypes.string.isRequired,
-  action: PropTypes.func,
+  onPress: PropTypes.func,
   icon: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element
   ]),
 }
 
-ProjectListCard.defaultProps = {
-  action: () => {
-
-  }
-}
-
-export { ProjectListCard }
+export { CreateNewProjectCard }

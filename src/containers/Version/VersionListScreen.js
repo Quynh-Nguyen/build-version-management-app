@@ -15,15 +15,10 @@ import { LinearGradient } from 'expo'
 import { NavigationHeader } from '../../components/Navigation'
 import { Images, LayoutUtils } from '../../utils'
 import { H1Text } from '../../components/Text'
-import { ProjectListCard } from '../../components/Card'
-import { VerticalList } from '../../components/ListItem'
 import injectReducer from '../../utils/injectReducer'
 import injectSaga from '../../utils/injectSaga'
 import reducer from './reducers'
 import saga from './saga'
-import {
-  gotoProjectDetail,
-} from './actions'
 
 const styles = StyleSheet.create({
   container: {
@@ -54,15 +49,9 @@ const stylesBottomNavigation = StyleSheet.create({
 
 const marginTop = LayoutUtils.getExtraTop()
 
-class ProjectListScreenClass extends React.Component {
+class VersionListClass extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  onPressProjectCard = () => {
-    const { onPressProjectCard } = this.props
-
-    onPressProjectCard(1)
   }
 
   render() {
@@ -87,7 +76,7 @@ class ProjectListScreenClass extends React.Component {
         <NavigationHeader
           style={{ marginTop: marginTop + 20 }}
           headerItem={{
-            title: `Projects`,
+            title: `Versions`,
             icon: null,
             button: Images.closeButton
           }}
@@ -95,24 +84,7 @@ class ProjectListScreenClass extends React.Component {
         />
         <SafeAreaView style={styles.wrapper}>
           <View style={styles.content}>
-            <VerticalList title="All" number="4">
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"  action={this.onPressProjectCard}/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-              <ProjectListCard text="PROJECT A" icon="compare-arrows" number="5"/>
-            </VerticalList>
+
           </View>
         </SafeAreaView>
       </View>
@@ -121,7 +93,7 @@ class ProjectListScreenClass extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const loading = state.main.get('loading')
+  const loading = state.version.get('loading')
   return {
     loading,
   }
@@ -129,21 +101,20 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => dispatch({ type: 'GO_BACK' }),
-  onPressProjectCard: () => dispatch(gotoProjectDetail({projectId: 5})),
 })
 
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
-)
+);
 
-const withReducer = injectReducer({key: 'main', reducer})
-const withSaga = injectSaga({ key: 'main', saga })
+const withReducer = injectReducer({key: 'version', reducer})
+const withSaga = injectSaga({ key: 'version', saga })
 
-const ProjectListScreen = compose(
+const VersionListScreen = compose(
   withReducer,
   withConnect,
   withConnect,
-)(ProjectListScreenClass)
+)(VersionListClass)
 
-export { ProjectListScreen }
+export { VersionListScreen }

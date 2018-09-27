@@ -13,9 +13,6 @@ export default(state = initialState, action) => {
     case 'GET_STARTED':
       NavStore.pushToScreen('LoginNavigator')
       break;
-    case 'GO_BACK':
-      NavStore.goBack()
-      break;
     case 'LOGIN_GOTO':
         NavStore.pushToScreen('Login')
         break;
