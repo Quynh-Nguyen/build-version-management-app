@@ -48,6 +48,10 @@ const ApiService = {
       .catch((error) => {
         throw new Error(`[API] ${error}`)
       })
+  },
+
+  getVersions(projectId, type) {
+    return axios.get(`/projects/${projectId}/versions/${type}`);;
   }
 }
 

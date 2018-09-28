@@ -1,78 +1,45 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import {
-  StyleSheet,
-  View,
-  Text,
-  AsyncStorage,
-  StatusBar,
-  SafeAreaView,
-} from 'react-native'
-import { BottomNavigation } from 'react-native-material-ui'
-import { LinearGradient } from 'expo'
+import React from 'react';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
 
-import { NavigationHeader } from '../../components/Navigation'
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+
+import { VersionCard } from '../../components/Card';
+
+import { NavigationHeader } from '../../components/Navigation';
 import { Images, LayoutUtils } from '../../utils'
-import { H1Text } from '../../components/Text'
-import injectReducer from '../../utils/injectReducer'
-import injectSaga from '../../utils/injectSaga'
-import reducer from './reducers'
-import saga from './saga'
+import { getVersionsRequest } from './actions';
+
+import reducer from './reducers';
+import saga from './saga';
+import injectReducer from '../../utils/injectReducer';
+import injectSaga from '../../utils/injectSaga';
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#141e29',
   },
-  wrapper: {
+  verionList: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  content: {
-    flex: 0.9,
-    flexDirection: 'column',
-  },
+    padding: 10
+  }
 });
-
-const stylesBottomNavigation = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#161F47',
-  },
-})
 
 const marginTop = LayoutUtils.getExtraTop()
 
-class VersionListClass extends React.Component {
+class VersionListScreenClass extends React.Component {
+
   constructor(props) {
     super(props);
+    this.props.getVersions(this.props.navigation.getParam('projectId', -1), 1);
   }
 
   render() {
-    const { goBack } = this.props
-
+    console.log('[VersionListScreen] render', this.props.data);
     return (
       <View style={styles.container}>
-        <LinearGradient
-          colors={['rgba(7,46,89,0.8)', 'transparent']}
-          start={[0, 0]}
-          end={[1, 1]}
-          location={[0.25, 0.6, 1]}
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            height: '100%',
-          }}
-        />
-        <StatusBar barStyle='light-content' />
         <NavigationHeader
           style={{ marginTop: marginTop + 20 }}
           headerItem={{
@@ -80,41 +47,38 @@ class VersionListClass extends React.Component {
             icon: null,
             button: Images.closeButton
           }}
-          action={goBack}
+          action={() => this.props.navigation.goBack()}
         />
-        <SafeAreaView style={styles.wrapper}>
-          <View style={styles.content}>
-
-          </View>
-        </SafeAreaView>
+        <Text style={{ color: '#FFFFFF' }} >Project Id: {this.props.navigation.getParam('projectId', -1)}</Text>
+        <FlatList style={styles.verionList}
+          data={this.props.data}
+          keyExtractor={(item, index) => item.id}
+          renderItem={({ item }) => this._renderRow(item)} />
       </View>
-    )
+    );
+  }
+
+  _renderRow(item) {
+    console.log('Render row: ', item);
+    return (
+      <VersionCard item={item}/>
+    );
   }
 }
 
 const mapStateToProps = (state) => {
-  const loading = state.version.get('loading')
   return {
-    loading,
+    data: state.versions.data
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  goBack: () => dispatch({ type: 'GO_BACK' }),
+const mapDispatchToProps = (dispatch) => ({
+  getVersions: (projectId, type) => dispatch(getVersionsRequest(projectId, type)),
 })
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({key: 'version', reducer})
-const withSaga = injectSaga({ key: 'version', saga })
-
-const VersionListScreen = compose(
-  withReducer,
-  withConnect,
-  withConnect,
-)(VersionListClass)
+const withReducer = injectReducer({ key: 'versions', reducer });
+const withSaga = injectSaga({ key: 'versions', saga });
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const VersionListScreen = compose(withReducer, withSaga, withConnect)(VersionListScreenClass);
 
 export { VersionListScreen }
