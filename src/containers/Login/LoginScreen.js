@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   inputContent: {
     flex: 0.8,
     flexDirection: 'column',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-start'
   },
   top: {
     flexDirection: 'row',
@@ -73,9 +73,11 @@ class LoginScreenClass extends React.Component {
     super(props);
 
     this.state = {
+      userName: ``,
       email: ``,
       password: ``,
       secureTextEntry: true,
+      currentTab: 'sign_in', // or sign_up
     }
   }
 
@@ -85,10 +87,15 @@ class LoginScreenClass extends React.Component {
     signIn(email, password)
   }
 
-  render() {
-    const { secureTextEntry, email, password } = this.state
-    const { goBack, signUp, loading } = this.props
+  signUp = () => {
+    console.log('REQUEST_SIGN_UP')
+  }
 
+  changeTab = (tab) => this.setState({ currentTab: tab })
+
+  renderSignIn = () => {
+    const { secureTextEntry, email, password } = this.state
+    const { loading } = this.props
     const imageIcon = (
       <EvilIcons
         name="spinner-3"
@@ -96,6 +103,73 @@ class LoginScreenClass extends React.Component {
         color="white"
       />
     )
+
+    return (
+      <View>
+        <TextInput
+          label='Email'
+          value={email}
+          onChange={(email) => this.setState({email})}
+          />
+        <TextInput
+          label='Password'
+          secureTextEntry={secureTextEntry}
+          value={password}
+          onChange={(password) => this.setState({password})}
+        />
+        <View style={styles.bottom}>
+          <PrimaryButton
+            raised={true}
+            primary={true}
+            upperCase={true}
+            onPress={this.signIn}
+            text='Sign In'
+            icon={loading ? imageIcon : ''}
+          />
+          <TextButton upperCase={false} text='Forgot Password?'/>
+        </View>
+      </View>
+    )
+  }
+
+  renderSignUp = () => {
+    const { userName, email, password, secureTextEntry } = this.state
+    return (
+      <View>
+        <TextInput
+          label='Name'
+          value={userName}
+          onChange={(userName) => this.setState({ userName })}
+        />
+        <TextInput
+          label='Email'
+          value={email}
+          onChange={(email) => this.setState({ email })}
+        />
+        <TextInput
+          label='Password'
+          value={password}
+          onChange={(password) => this.setState({ password })}
+          secureTextEntry={secureTextEntry}
+        />
+        <View style={styles.bottom}>
+          <PrimaryButton
+            raised={true}
+            primary={true}
+            upperCase={true}
+            onPress={this.signUp}
+            text='Sign Up'
+          />
+          <TextButton upperCase={false} text='Term and privacy'/>
+        </View>
+      </View>
+    )
+  }
+
+  render() {
+    const { currentTab } = this.state
+    const { goBack } = this.props
+    const isSignInTab = currentTab === 'sign_in' // false => sign_up
 
     return (
       <View style={styles.container}>
@@ -133,24 +207,10 @@ class LoginScreenClass extends React.Component {
           <View style={styles.content}>
             <View style={styles.inputContent}>
               <View style={styles.top}>
-                <EntryButton text='Sign Up' onPress={signUp} isActive={false} />
-                <EntryButton text='Sign In' isActive={true} />
+                <EntryButton text='Sign Up' onPress={() => this.changeTab('sign_up')} isActive={!isSignInTab} />
+                <EntryButton text='Sign In' onPress={() => this.changeTab('sign_in')} isActive={isSignInTab} />
               </View>
-              <TextInput
-                label='Email'
-                value={email}
-                onChange={(email) => this.setState({email})}
-                />
-              <TextInput
-                label='Password'
-                secureTextEntry={secureTextEntry}
-                value={password}
-                onChange={(password) => this.setState({password})}
-              />
-              <View style={styles.bottom}>
-                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={this.signIn} text='Sign In' icon={loading ? imageIcon : ''}/>
-                <TextButton upperCase={false} text='Forgot Password?'/>
-              </View>
+              {isSignInTab ? this.renderSignIn() : this.renderSignUp()}
             </View>
           </View>
         </SafeAreaView>
