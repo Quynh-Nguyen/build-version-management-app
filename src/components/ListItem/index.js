@@ -1,3 +1,5 @@
 export { ListItem } from './ListItem'
 export { HorizontalList } from './HorizontalList'
 export { VerticalList } from './VerticalList'
+export { VerticalVersionList } from './VerticalVersionList'
+export { VersionListItem } from './VersionListItem'

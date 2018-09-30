@@ -58,8 +58,8 @@ const VerticalList = ({ children, title, number, ...rest }) => {
           showsHorizontalScrollIndicator={false}
           keyboardShouldPersistTaps="always"
         >
-          {children}
           <CreateNewProjectCard text="Create New Project"/>
+          {children}
         </ScrollView>
       </View>
     </View>
