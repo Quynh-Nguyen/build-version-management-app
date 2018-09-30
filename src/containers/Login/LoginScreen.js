@@ -5,7 +5,6 @@ import {
   View,
   StatusBar,
   SafeAreaView,
-  Image,
   KeyboardAvoidingView,
   Animated,
   Keyboard,
@@ -19,9 +18,8 @@ import { Images } from '../../utils'
 import { TextInputCustom as TextInput } from '../../components/Input'
 import { PrimaryButton, TextButton, EntryButton } from '../../components/Button'
 import { loginRequest, registerRequest } from '../Auth/actions';
-import styles, { LOGO_HEIGHT_SMALL, LOGO_HEIGHT_LARGE } from './styles'
+import styles, { LOGO_SMALL, LOGO_LARGE } from './styles'
 
-const marginTop = LayoutUtils.getExtraTop()
 class LoginScreenClass extends React.Component {
   constructor(props) {
     super(props);
@@ -33,35 +31,36 @@ class LoginScreenClass extends React.Component {
       secureTextEntry: true,
       currentTab: 'sign_in', // or sign_up
     }
-    this.logoSize = new Animated.Value(LOGO_HEIGHT_LARGE)
+    this.logoSize = new Animated.Value(LOGO_LARGE)
   }
 
   componentWillMount () {
-    this.keyboardWillShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow);
-    this.keyboardWillHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide);
+    this.keyboardShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardShow);
+    this.keyboardHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardHide);
   }
 
   componentWillUnmount() {
-    this.keyboardWillShowSub.remove();
-    this.keyboardWillHideSub.remove();
+    this.keyboardShowSub.remove();
+    this.keyboardHideSub.remove();
   }
 
-  keyboardWillShow = (event) => {
+  keyboardShow = (event) => {
     Animated.timing(this.logoSize, {
       duration: event ? event.duration : 200,
-      toValue: LOGO_HEIGHT_SMALL,
+      toValue: LOGO_SMALL,
     }).start();
   };
 
-  keyboardWillHide = (event) => {
+  keyboardHide = (event) => {
     Animated.timing(this.logoSize, {
       duration: event ? event.duration : 200,
-      toValue: LOGO_HEIGHT_LARGE,
+      toValue: LOGO_LARGE,
     }).start();
   };
 
   signIn = () => {
     const { signIn, loading } = this.props
+    console.log('aaaaaa')
 
     if (!loading) {
       const { email, password } = this.state
@@ -163,6 +162,7 @@ class LoginScreenClass extends React.Component {
     const { currentTab } = this.state
     const { goBack } = this.props
     const isSignInTab = currentTab === 'sign_in' // false => sign_up
+    const marginTop = LayoutUtils.getExtraTop()
 
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -171,13 +171,7 @@ class LoginScreenClass extends React.Component {
           start={[0, 0]}
           end={[1, 1]}
           location={[0.25, 0.6, 1]}
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            height: '100%',
-          }}
+          style={styles.fullScreen}
         />
         <StatusBar barStyle='light-content' />
         <NavigationHeader
