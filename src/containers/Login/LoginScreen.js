@@ -60,7 +60,6 @@ class LoginScreenClass extends React.Component {
 
   signIn = () => {
     const { signIn, loading } = this.props
-    console.log('aaaaaa')
 
     if (!loading) {
       const { email, password } = this.state
