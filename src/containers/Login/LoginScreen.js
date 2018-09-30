@@ -3,15 +3,12 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
   View,
-  Text,
   StatusBar,
-  FlatList,
-  Easing,
-  Animated,
   SafeAreaView,
-  Button,
-  AsyncStorage,
   Image,
+  KeyboardAvoidingView,
+  Animated,
+  Keyboard,
 } from 'react-native';
 import { LinearGradient } from 'expo'
 import { EvilIcons } from '@expo/vector-icons'
@@ -22,12 +19,10 @@ import { Images } from '../../utils'
 import { TextInputCustom as TextInput } from '../../components/Input'
 import { PrimaryButton, TextButton, EntryButton } from '../../components/Button'
 import { loginRequest, registerRequest } from '../Auth/actions';
-import styles from './styles'
+import styles, { LOGO_HEIGHT_SMALL, LOGO_HEIGHT_LARGE } from './styles'
 
 const marginTop = LayoutUtils.getExtraTop()
-
 class LoginScreenClass extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -38,7 +33,32 @@ class LoginScreenClass extends React.Component {
       secureTextEntry: true,
       currentTab: 'sign_in', // or sign_up
     }
+    this.logoSize = new Animated.Value(LOGO_HEIGHT_LARGE)
   }
+
+  componentWillMount () {
+    this.keyboardWillShowSub = Keyboard.addListener('keyboardDidShow', this.keyboardWillShow);
+    this.keyboardWillHideSub = Keyboard.addListener('keyboardDidHide', this.keyboardWillHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  keyboardWillShow = (event) => {
+    Animated.timing(this.logoSize, {
+      duration: event ? event.duration : 200,
+      toValue: LOGO_HEIGHT_SMALL,
+    }).start();
+  };
+
+  keyboardWillHide = (event) => {
+    Animated.timing(this.logoSize, {
+      duration: event ? event.duration : 200,
+      toValue: LOGO_HEIGHT_LARGE,
+    }).start();
+  };
 
   signIn = () => {
     const { signIn, loading } = this.props
@@ -50,7 +70,6 @@ class LoginScreenClass extends React.Component {
   }
 
   signUp = () => {
-    console.log('REQUEST_CLICK')
     const { loading, signUp } = this.props
 
     if (!loading) {
@@ -146,7 +165,7 @@ class LoginScreenClass extends React.Component {
     const isSignInTab = currentTab === 'sign_in' // false => sign_up
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <LinearGradient
           colors={['rgba(7,46,89,0.8)', 'transparent']}
           start={[0, 0]}
@@ -172,11 +191,7 @@ class LoginScreenClass extends React.Component {
         />
         <SafeAreaView style={styles.wrapper}>
           <View style={styles.logo}>
-            <Image
-              resizeMode={'contain'}
-              style={styles.logoIcon}
-              source={Images.logo}
-            />
+            <Animated.Image source={Images.logo} style={[styles.logoIcon, { height: this.logoSize }]} />
           </View>
           <View style={styles.content}>
             <View style={styles.inputContent}>
@@ -188,7 +203,7 @@ class LoginScreenClass extends React.Component {
             </View>
           </View>
         </SafeAreaView>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

@@ -31,7 +31,7 @@ import {
 const EntryButton = ({ text, onPress, isActive, ...rest }) => {
   return (
     <View style={styles.container}>
-      <View style={[styles.after, {width: isActive ? 50 : 0}]} />
+      <View style={[styles.after, {width: isActive ? 60 : 0}]} />
       <Text onPress={onPress} {...rest} style={[styles.text, {color: isActive ? '#FFF' : '#A1A3CF'}]}>
         {text}
       </Text>

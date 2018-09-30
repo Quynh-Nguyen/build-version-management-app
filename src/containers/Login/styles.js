@@ -1,4 +1,8 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const window = Dimensions.get('window');
+export const LOGO_HEIGHT_LARGE = window.height / 3;
+export const LOGO_HEIGHT_SMALL = window.height / 8;
 
 const styles = StyleSheet.create({
   container: {
@@ -39,8 +43,8 @@ const styles = StyleSheet.create({
   },
   logoIcon: {
     flex: 0.5,
-    width: 150,
-    height: 150,
+    resizeMode: 'contain',
+    height: LOGO_HEIGHT_LARGE,
   },
 })
 
