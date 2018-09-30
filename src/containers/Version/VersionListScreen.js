@@ -8,6 +8,7 @@ import {
   AsyncStorage,
   StatusBar,
   SafeAreaView,
+  ScrollView,
 } from 'react-native'
 import { BottomNavigation } from 'react-native-material-ui'
 import { LinearGradient } from 'expo'
@@ -15,6 +16,9 @@ import { LinearGradient } from 'expo'
 import { NavigationHeader } from '../../components/Navigation'
 import { Images, LayoutUtils } from '../../utils'
 import { H1Text } from '../../components/Text'
+import { ProjectBannerCard } from '../../components/Card'
+import { VerticalVersionList } from '../../components/ListItem'
+import { VersionListItem } from '../../components/ListItem'
 import injectReducer from '../../utils/injectReducer'
 import injectSaga from '../../utils/injectSaga'
 import reducer from './reducers'
@@ -32,9 +36,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   content: {
-    flex: 0.9,
-    flexDirection: 'column',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
+  contentPadding: {
+    flex: 0.9,
+  }
 });
 
 const stylesBottomNavigation = StyleSheet.create({
@@ -81,12 +89,46 @@ class VersionListClass extends React.Component {
             button: Images.closeButton
           }}
           action={goBack}
+          rightView={{
+            rightViewIcon: Images.closeButton,
+            rightViewAction: this.goBack,
+            rightViewTitle: '4'
+          }}
         />
-        <SafeAreaView style={styles.wrapper}>
-          <View style={styles.content}>
-
-          </View>
-        </SafeAreaView>
+        <View style={styles.wrapper}>
+          <ScrollView
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'center',
+              // flexDirection: 'row',
+              // flexWrap: 'wrap',
+              // justifyContent: 'center',
+              // alignItems: 'flex-start',
+            }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+            nestedScrollEnabled={true}
+          >
+            <ProjectBannerCard text="Test Ne"/>
+            <View style={styles.content}>
+              <View style={styles.contentPadding}>
+                <VerticalVersionList title="All" number="5">
+                  <VersionListItem text="v1.0.1 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.2 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.3 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.4 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.5 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.6 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.7 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.8 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.9 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.10 - 2018/09/27" icon="people"/>
+                </VerticalVersionList>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
       </View>
     )
   }
