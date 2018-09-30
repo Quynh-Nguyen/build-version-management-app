@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
-  StyleSheet,
   View,
   Text,
   StatusBar,
@@ -22,48 +21,8 @@ import { LayoutUtils } from '../../utils'
 import { Images } from '../../utils'
 import { TextInputCustom as TextInput } from '../../components/Input'
 import { PrimaryButton, TextButton, EntryButton } from '../../components/Button'
-import { loginRequest } from '../Auth/actions';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#141e29',
-  },
-  wrapper: {
-    flex: 1,
-  },
-  logo: {
-    flex: 0.3,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    flex: 0.7,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  inputContent: {
-    flex: 0.8,
-    flexDirection: 'column',
-    justifyContent: 'flex-start'
-  },
-  top: {
-    flexDirection: 'row',
-    // paddingBottom: 30,
-    justifyContent: 'flex-start'
-  },
-  bottom: {
-    flex: 0.5,
-    paddingTop: 32,
-  },
-  logoIcon: {
-    flex: 0.5,
-    width: 150,
-    height: 150,
-  },
-})
+import { loginRequest, registerRequest } from '../Auth/actions';
+import styles from './styles'
 
 const marginTop = LayoutUtils.getExtraTop()
 
@@ -73,7 +32,7 @@ class LoginScreenClass extends React.Component {
     super(props);
 
     this.state = {
-      userName: ``,
+      username: ``,
       email: ``,
       password: ``,
       secureTextEntry: true,
@@ -82,30 +41,41 @@ class LoginScreenClass extends React.Component {
   }
 
   signIn = () => {
-    const { signIn } = this.props
-    const { email, password } = this.state
-    signIn(email, password)
+    const { signIn, loading } = this.props
+
+    if (!loading) {
+      const { email, password } = this.state
+      signIn(email, password)  
+    }
   }
 
   signUp = () => {
-    console.log('REQUEST_SIGN_UP')
+    console.log('REQUEST_CLICK')
+    const { loading, signUp } = this.props
+
+    if (!loading) {
+      const { username, email, password } = this.state
+      signUp(username, email, password)
+    }
   }
 
   changeTab = (tab) => this.setState({ currentTab: tab })
 
+  spinnerIcon = () => (
+    <EvilIcons
+      name="spinner-3"
+      size={26}
+      color="white"
+    />
+  )
+
   renderSignIn = () => {
     const { secureTextEntry, email, password } = this.state
     const { loading } = this.props
-    const imageIcon = (
-      <EvilIcons
-        name="spinner-3"
-        size={26}
-        color="white"
-      />
-    )
+    const imageIcon = this.spinnerIcon()
 
     return (
-      <View>
+      <View style={styles.mainInput}>
         <TextInput
           label='Email'
           value={email}
@@ -133,13 +103,16 @@ class LoginScreenClass extends React.Component {
   }
 
   renderSignUp = () => {
-    const { userName, email, password, secureTextEntry } = this.state
+    const { username, email, password, secureTextEntry } = this.state
+    const { loading } = this.props
+    const imageIcon = this.spinnerIcon()
+
     return (
-      <View>
+      <View style={styles.mainInput}>
         <TextInput
           label='Name'
-          value={userName}
-          onChange={(userName) => this.setState({ userName })}
+          value={username}
+          onChange={(username) => this.setState({ username })}
         />
         <TextInput
           label='Email'
@@ -159,6 +132,7 @@ class LoginScreenClass extends React.Component {
             upperCase={true}
             onPress={this.signUp}
             text='Sign Up'
+            icon={loading ? imageIcon : ''}
           />
           <TextButton upperCase={false} text='Term and privacy'/>
         </View>
@@ -228,8 +202,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => dispatch({ type: 'GO_BACK' }),
-  signIn: (email,password) => dispatch(loginRequest({email,password})),
-  signUp: () => dispatch({ type: 'REGISTER_GOTO' }),
+  signIn: (email, password) => dispatch(loginRequest({ email, password })),
+  signUp: (username, email, password) => dispatch(registerRequest({ username, email, password })),
 })
 
 const withConnect = connect(
