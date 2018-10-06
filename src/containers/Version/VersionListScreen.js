@@ -1,14 +1,12 @@
 import React from 'react'
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet, View, FlatList, ActivityIndicator, Linking, Picker } from 'react-native'
 
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import { VersionCard } from '../../components/Card';
 import { NavigationHeader } from '../../components/Navigation';
 import { Images, LayoutUtils } from '../../utils'
 import { ProjectBannerCard } from '../../components/Card'
-import { VerticalVersionList } from '../../components/ListItem'
 import { VersionListItem } from '../../components/ListItem'
 
 import injectReducer from '../../utils/injectReducer'
@@ -24,10 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#141e29',
   },
   verionList: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    padding: 10
   },
   content: {
     flex: 1,
@@ -48,8 +43,43 @@ class VersionListScreenClass extends React.Component {
     this.props.getVersions(this.props.navigation.getParam('projectId', -1), 1);
   }
 
+  _download(item) {
+    Linking.canOpenURL(item.link).then(supported => {
+      if (supported) {
+        Linking.openURL(item.link);
+      } else {
+        console.log('Can open link', item.link);
+      }
+    });
+  }
+
+  _renderVersionListItem(item) {
+    return (
+      <VersionListItem
+        item={item}
+        icon="people"
+        onDownload={ () => this._download(item) } />
+    );
+  }
+
+  _renderVersionList() {
+    return (
+      <FlatList style={styles.verionList}
+        data={this.props.project.versions}
+        keyExtractor={(item, index) => `${item.id}`}
+        renderItem={({ item }) => this._renderVersionListItem(item)} />
+    );
+  }
+
   render() {
-    console.log('[VersionListScreen] render', this.props.data);
+    let content;
+
+    if (this.props.loading) {
+      content = <ActivityIndicator style={styles.container} size="large" color="#FFFFFF" />;
+    } else {
+      content = this._renderVersionList();
+    }
+
     return (
       <View style={styles.container}>
         <NavigationHeader
@@ -59,58 +89,33 @@ class VersionListScreenClass extends React.Component {
             icon: null,
             button: Images.closeButton
           }}
-          action={goBack}
+          action={() => this.props.navigation.goBack()}
           rightView={{
             rightViewIcon: Images.closeButton,
             rightViewAction: this.goBack,
             rightViewTitle: '4'
           }}
         />
-        <View style={styles.wrapper}>
-          <ScrollView
-            contentContainerStyle={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="always"
-            nestedScrollEnabled={true}
-          >
-            <ProjectBannerCard text="Test Ne"/>
-            <View style={styles.content}>
-              <View style={styles.contentPadding}>
-                <VerticalVersionList title="All" number="5">
-                  <VersionListItem text="v1.0.1 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.2 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.3 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.4 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.5 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.6 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.7 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.8 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.9 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.10 - 2018/09/27" icon="people"/>
-                </VerticalVersionList>
-              </View>
-            </View>
-          </ScrollView>
-        </View>
+        <ProjectBannerCard text={this.props.project.name || ''} />
+        <Picker
+          selectedValue={this.props.type}
+          style={{ height: 50, color: '#000000', backgroundColor: '#FFFFFF'}}
+          onValueChange={(itemValue, itemIndex) => this.props.getVersions(this.props.navigation.getParam('projectId', -1), itemValue) }>
+            <Picker.Item label="Android" value={2} />
+            <Picker.Item label="iOS" value={1} />
+        </Picker>
+        {content}
       </View>
-    );
-  }
-
-  _renderRow(item) {
-    console.log('Render row: ', item);
-    return (
-      <VersionCard item={item}/>
     );
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log('mapStateToProps', state);
   return {
-    data: state.versions.data
+    loading: state.versions.loading,
+    type: state.versions.type,
+    project: state.versions.data
   }
 }
 

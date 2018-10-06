@@ -4,13 +4,11 @@ import { Button } from 'react-native-material-ui'
 import {
   StyleSheet,
   View,
-  Image,
   Text,
   TouchableOpacity,
-  TouchableWithoutFeedback,
 } from 'react-native'
 import { Icon } from 'react-native-material-ui'
-import { FontAwesome, Octicons, MaterialCommunityIcons, Feather } from '@expo/vector-icons'
+import { FontAwesome, Octicons, MaterialCommunityIcons, Feather, Entypo } from '@expo/vector-icons'
 
 const styles = StyleSheet.create({
   container: {
@@ -18,8 +16,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderBottomColor: 'rgba(61,90,254,0.35)',
     backgroundColor: 'transparent',
-    // borderRadius: 4,
-    // marginRight: 10,
     flex: 1,
     height: 105,
     flexDirection: 'row',
@@ -32,7 +28,8 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 0.5,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   footer: {
     flex: 0.5,
@@ -80,7 +77,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const VersionListItem = ({ text, action, icon, number, ...rest }) => {
+const VersionListItem = ({ item, action, onDownload }) => {
 
   return (
     <View>
@@ -99,15 +96,8 @@ const VersionListItem = ({ text, action, icon, number, ...rest }) => {
             </View>
             <View style={styles.content}>
               <View style={styles.header}>
-                <Text style={styles.text}>{text}</Text>
-                <View style={styles.subContent}>
-                  <Icon
-                    name="play-arrow"
-                    color="#FFF"
-                    size={11}
-                  />
-                  <Text style={styles.subText}>{number} changes</Text>
-                </View>
+                <Text style={styles.text}>{item.version}</Text>
+                <Text style={{ color: '#FFFFFF', marginLeft: 'auto' }}>{ item.updated_at || item.created_at }</Text>
               </View>
               <View style={styles.footer}>
                 <View style={styles.subFooter}>
@@ -141,6 +131,19 @@ const VersionListItem = ({ text, action, icon, number, ...rest }) => {
                     color="#3D5AFE"
                     style={styles.subFooterIcon}
                   />
+                  <Octicons
+                    name="link"
+                    size={12}
+                    color="#B1BCFD"
+                    style={styles.subFooterIcon}
+                  />
+                  <Entypo
+                    name="download"
+                    size={22}
+                    color="#3D5AFE"
+                    style={styles.subFooterIcon}
+                    onPress={() => onDownload()}
+                  />
                 </View>
               </View>
             </View>
@@ -152,18 +155,14 @@ const VersionListItem = ({ text, action, icon, number, ...rest }) => {
 }
 
 VersionListItem.propTypes = {
-  text: PropTypes.string.isRequired,
+  item: PropTypes.object.isRequired,
   action: PropTypes.func,
-  icon: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element
-  ]),
+  onDownload: PropTypes.func,
 }
 
 VersionListItem.defaultProps = {
-  action: () => {
-
-  }
+  action: () => {},
+  onDownload: () => {}
 }
 
 export { VersionListItem }

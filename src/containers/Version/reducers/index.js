@@ -1,6 +1,7 @@
 const initialState = {
   loading: false,
-  data: []
+  type: 1,
+  data: {}
 };
 
 export default (state = initialState, action) => {
@@ -8,13 +9,14 @@ export default (state = initialState, action) => {
     case 'GET_VERSIONS':
       return {
         ...state,
+        type: action.payload.type,
         loading: true
       }
     case 'GET_VERSIONS_SUCCESS':
       return {
         ...state,
         loading: false,
-        data: action.payload.data.project.versions
+        data: action.payload.data.project
       }
     case 'GET_VERSIONS_FAILED':
       return {
