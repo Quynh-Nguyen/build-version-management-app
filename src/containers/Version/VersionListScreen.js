@@ -1,20 +1,22 @@
-import React from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import React from 'react'
+import { StyleSheet, View, ScrollView } from 'react-native'
 
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import { VersionCard } from '../../components/Card';
-
 import { NavigationHeader } from '../../components/Navigation';
 import { Images, LayoutUtils } from '../../utils'
+import { ProjectBannerCard } from '../../components/Card'
+import { VerticalVersionList } from '../../components/ListItem'
+import { VersionListItem } from '../../components/ListItem'
+
+import injectReducer from '../../utils/injectReducer'
+import injectSaga from '../../utils/injectSaga'
+import reducer from './reducers'
+import saga from './saga'
+
 import { getVersionsRequest } from './actions';
-
-import reducer from './reducers';
-import saga from './saga';
-import injectReducer from '../../utils/injectReducer';
-import injectSaga from '../../utils/injectSaga';
-
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +25,17 @@ const styles = StyleSheet.create({
   },
   verionList: {
     flex: 1,
-    padding: 10
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  content: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  contentPadding: {
+    flex: 0.9,
   }
 });
 
@@ -47,13 +59,43 @@ class VersionListScreenClass extends React.Component {
             icon: null,
             button: Images.closeButton
           }}
-          action={() => this.props.navigation.goBack()}
+          action={goBack}
+          rightView={{
+            rightViewIcon: Images.closeButton,
+            rightViewAction: this.goBack,
+            rightViewTitle: '4'
+          }}
         />
-        <Text style={{ color: '#FFFFFF' }} >Project Id: {this.props.navigation.getParam('projectId', -1)}</Text>
-        <FlatList style={styles.verionList}
-          data={this.props.data}
-          keyExtractor={(item, index) => item.id}
-          renderItem={({ item }) => this._renderRow(item)} />
+        <View style={styles.wrapper}>
+          <ScrollView
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+            nestedScrollEnabled={true}
+          >
+            <ProjectBannerCard text="Test Ne"/>
+            <View style={styles.content}>
+              <View style={styles.contentPadding}>
+                <VerticalVersionList title="All" number="5">
+                  <VersionListItem text="v1.0.1 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.2 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.3 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.4 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.5 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.6 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.7 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.8 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.9 - 2018/09/27" icon="people"/>
+                  <VersionListItem text="v1.0.10 - 2018/09/27" icon="people"/>
+                </VerticalVersionList>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
       </View>
     );
   }

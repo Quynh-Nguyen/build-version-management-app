@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
-  StyleSheet,
   View,
   Text,
   StatusBar,
@@ -22,48 +21,8 @@ import { LayoutUtils } from '../../utils'
 import { Images } from '../../utils'
 import { TextInputCustom as TextInput } from '../../components/Input'
 import { PrimaryButton, TextButton, EntryButton } from '../../components/Button'
-import { loginRequest } from '../Auth/actions';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#141e29',
-  },
-  wrapper: {
-    flex: 1,
-  },
-  logo: {
-    flex: 0.3,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  content: {
-    flex: 0.7,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  inputContent: {
-    flex: 0.8,
-    flexDirection: 'column',
-    justifyContent: 'flex-end'
-  },
-  top: {
-    flexDirection: 'row',
-    // paddingBottom: 30,
-    justifyContent: 'flex-start'
-  },
-  bottom: {
-    flex: 0.5,
-    paddingTop: 32,
-  },
-  logoIcon: {
-    flex: 0.5,
-    width: 150,
-    height: 150,
-  },
-})
+import { loginRequest, registerRequest } from '../Auth/actions';
+import styles from './styles'
 
 const marginTop = LayoutUtils.getExtraTop()
 
@@ -73,29 +32,118 @@ class LoginScreenClass extends React.Component {
     super(props);
 
     this.state = {
+      username: ``,
       email: ``,
       password: ``,
       secureTextEntry: true,
+      currentTab: 'sign_in', // or sign_up
     }
   }
 
   signIn = () => {
-    const { signIn } = this.props
-    const { email, password } = this.state
-    signIn(email, password)
+    const { signIn, loading } = this.props
+
+    if (!loading) {
+      const { email, password } = this.state
+      signIn(email, password)  
+    }
+  }
+
+  signUp = () => {
+    console.log('REQUEST_CLICK')
+    const { loading, signUp } = this.props
+
+    if (!loading) {
+      const { username, email, password } = this.state
+      signUp(username, email, password)
+    }
+  }
+
+  changeTab = (tab) => this.setState({ currentTab: tab })
+
+  spinnerIcon = () => (
+    <EvilIcons
+      name="spinner-3"
+      size={26}
+      color="white"
+    />
+  )
+
+  renderSignIn = () => {
+    const { secureTextEntry, email, password } = this.state
+    const { loading } = this.props
+    const imageIcon = this.spinnerIcon()
+
+    return (
+      <View style={styles.mainInput}>
+        <TextInput
+          label='Email'
+          value={email}
+          onChange={(email) => this.setState({email})}
+          />
+        <TextInput
+          label='Password'
+          secureTextEntry={secureTextEntry}
+          value={password}
+          onChange={(password) => this.setState({password})}
+        />
+        <View style={styles.bottom}>
+          <PrimaryButton
+            raised={true}
+            primary={true}
+            upperCase={true}
+            onPress={this.signIn}
+            text='Sign In'
+            icon={loading ? imageIcon : ''}
+          />
+          <TextButton upperCase={false} text='Forgot Password?'/>
+        </View>
+      </View>
+    )
+  }
+
+  renderSignUp = () => {
+    const { username, email, password, secureTextEntry } = this.state
+    const { loading } = this.props
+    const imageIcon = this.spinnerIcon()
+
+    return (
+      <View style={styles.mainInput}>
+        <TextInput
+          label='Name'
+          value={username}
+          onChange={(username) => this.setState({ username })}
+        />
+        <TextInput
+          label='Email'
+          value={email}
+          onChange={(email) => this.setState({ email })}
+        />
+        <TextInput
+          label='Password'
+          value={password}
+          onChange={(password) => this.setState({ password })}
+          secureTextEntry={secureTextEntry}
+        />
+        <View style={styles.bottom}>
+          <PrimaryButton
+            raised={true}
+            primary={true}
+            upperCase={true}
+            onPress={this.signUp}
+            text='Sign Up'
+            icon={loading ? imageIcon : ''}
+          />
+          <TextButton upperCase={false} text='Term and privacy'/>
+        </View>
+      </View>
+    )
   }
 
   render() {
-    const { secureTextEntry, email, password } = this.state
-    const { goBack, signUp, loading } = this.props
-
-    const imageIcon = (
-      <EvilIcons
-        name="spinner-3"
-        size={26}
-        color="white"
-      />
-    )
+    const { currentTab } = this.state
+    const { goBack } = this.props
+    const isSignInTab = currentTab === 'sign_in' // false => sign_up
 
     return (
       <View style={styles.container}>
@@ -133,24 +181,10 @@ class LoginScreenClass extends React.Component {
           <View style={styles.content}>
             <View style={styles.inputContent}>
               <View style={styles.top}>
-                <EntryButton text='Sign Up' onPress={signUp} isActive={false} />
-                <EntryButton text='Sign In' isActive={true} />
+                <EntryButton text='Sign Up' onPress={() => this.changeTab('sign_up')} isActive={!isSignInTab} />
+                <EntryButton text='Sign In' onPress={() => this.changeTab('sign_in')} isActive={isSignInTab} />
               </View>
-              <TextInput
-                label='Email'
-                value={email}
-                onChange={(email) => this.setState({email})}
-                />
-              <TextInput
-                label='Password'
-                secureTextEntry={secureTextEntry}
-                value={password}
-                onChange={(password) => this.setState({password})}
-              />
-              <View style={styles.bottom}>
-                <PrimaryButton raised={true} primary={true} upperCase={true} onPress={this.signIn} text='Sign In' icon={loading ? imageIcon : ''}/>
-                <TextButton upperCase={false} text='Forgot Password?'/>
-              </View>
+              {isSignInTab ? this.renderSignIn() : this.renderSignUp()}
             </View>
           </View>
         </SafeAreaView>
@@ -168,8 +202,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   goBack: () => dispatch({ type: 'GO_BACK' }),
-  signIn: (email,password) => dispatch(loginRequest({email,password})),
-  signUp: () => dispatch({ type: 'REGISTER_GOTO' }),
+  signIn: (email, password) => dispatch(loginRequest({ email, password })),
+  signUp: (username, email, password) => dispatch(registerRequest({ username, email, password })),
 })
 
 const withConnect = connect(

@@ -1,5 +1,7 @@
 # React Native Project: Maverapp
 
+[<img src="https://raw.githubusercontent.com/Quynh-Nguyen/build-version-management-app/master/Maverapp.png">](Maverapp)
+
 ## Table of Contents
 
 * [Updating to New Releases](#updating-to-new-releases)
@@ -53,4 +55,5 @@ yarn
 ### Credits
 * Quynh Nguyen - likeguitarz@gmail.com
 * Hung Dang - hungqd
+* Hanh Tran - peteyhanh@gmail.com
 * ... join with us

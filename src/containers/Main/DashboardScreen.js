@@ -8,6 +8,7 @@ import {
   AsyncStorage,
   StatusBar,
   SafeAreaView,
+  ScrollView,
 } from 'react-native'
 import { BottomNavigation } from 'react-native-material-ui'
 import { LinearGradient } from 'expo'
@@ -96,26 +97,41 @@ class DashboardScreenClass extends React.Component {
             button: Images.closeButton
           }}
           action={this.goBack}
+          rightView={{
+            rightViewIcon: Images.closeButton,
+            rightViewAction: this.goBack,
+            rightViewTitle: '4'
+          }}
         />
         <SafeAreaView style={styles.wrapper}>
-          <View style={styles.content}>
-            <H1Text>Welcome,</H1Text>
-            <H1Text>to Maverapp</H1Text>
-            <DashboardSummaryCard />
-            <HorizontalList title="Project" number="4">
-              <ProjectCard text="PROJECT A" icon="compare-arrows" number="5" action={this.onPressProjectCard}/>
-              <ProjectCard text="PROJECT B" icon="details" number="4"/>
-              <ProjectCard text="PROJECT C" icon="polymer" number="10"/>
-              <ProjectCard text="PROJECT D" icon="favorite-border" number="15"/>
-            </HorizontalList>
-            <HorizontalList title="Device" number="5">
-              <ProjectCard text="iPhone 4" icon="compare-arrows" number="5"/>
-              <ProjectCard text="iPhone 5" icon="details" number="4"/>
-              <ProjectCard text="iPhone X" icon="polymer" number="10"/>
-              <ProjectCard text="Samsung S9" icon="favorite-border" number="15"/>
-              <ProjectCard text="Samsung S8" icon="favorite-border" number="15"/>
-            </HorizontalList>
-          </View>
+          <ScrollView
+            contentContainerStyle={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
+            <View style={styles.content}>
+              <H1Text>Welcome,</H1Text>
+              <H1Text>to Maverapp</H1Text>
+              <DashboardSummaryCard />
+              <HorizontalList title="Project" number="4">
+                <ProjectCard text="PROJECT A" icon="compare-arrows" number="5" action={this.onPressProjectCard}/>
+                <ProjectCard text="PROJECT B" icon="details" number="4"/>
+                <ProjectCard text="PROJECT C" icon="polymer" number="10"/>
+                <ProjectCard text="PROJECT D" icon="favorite-border" number="15"/>
+              </HorizontalList>
+              <HorizontalList title="Device" number="5">
+                <ProjectCard text="iPhone 4" icon="compare-arrows" number="5"/>
+                <ProjectCard text="iPhone 5" icon="details" number="4"/>
+                <ProjectCard text="iPhone X" icon="polymer" number="10"/>
+                <ProjectCard text="Samsung S9" icon="favorite-border" number="15"/>
+                <ProjectCard text="Samsung S8" icon="favorite-border" number="15"/>
+              </HorizontalList>
+            </View>
+          </ScrollView>
         </SafeAreaView>
       </View>
     )

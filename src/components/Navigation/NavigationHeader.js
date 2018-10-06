@@ -95,7 +95,6 @@ class NavigationHeader extends Component {
             <View
               style={styles.rightView}
             >
-              <Image source={rightViewIcon} />
               {rightViewTitle &&
                 <Text style={[styles.rightTitle, styleTitle]}>{rightViewTitle}</Text>
               }
@@ -120,17 +119,23 @@ const styles = StyleSheet.create({
     // fontFamily: 'OpenSans-Bold'
   },
   rightView: {
+    width: 22,
+    height: 22,
+    backgroundColor: '#EE4B6E',
+    borderRadius: 11,
     position: 'absolute',
     right: 20,
     bottom: 15,
     alignItems: 'center',
-    flexDirection: 'row'
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   rightTitle: {
     // fontFamily: 'OpenSans-Semibold',
-    fontSize: 18,
-    color: MasterStyle.mainColor,
-    marginLeft: 4
+    fontSize: 10,
+    color: MasterStyle.mainTextColor,
+    // marginLeft: 4,
+    // alignItems: 'center',
   }
 })
 
