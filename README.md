@@ -56,4 +56,5 @@ yarn
 * Quynh Nguyen - likeguitarz@gmail.com
 * Hung Dang - hungqd
 * Hanh Tran - peteyhanh@gmail.com
+* Tan Nguyen (Backend) - 
 * ... join with us
