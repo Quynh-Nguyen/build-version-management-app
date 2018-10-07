@@ -69,9 +69,7 @@ class DashboardScreenClass extends React.Component {
   }
 
   onPressProjectCard = () => {
-    const { onPressProjectCard } = this.props
-
-    onPressProjectCard(1)
+    this.props.navigation.navigate('Version', { projectId: 1, type: 1 });
   }
 
   render() {

@@ -11,6 +11,7 @@ import {
   ImageBackground,
 } from 'react-native'
 import { Icon } from 'react-native-material-ui'
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo'
 
 const styles = StyleSheet.create({
@@ -103,7 +104,7 @@ const ProjectBannerCard = ({ text, icon, number, action, ...rest }) => {
           />
           <View style={styles.bannerContent}>
             <View style={styles.bannerItem}>
-              <Icon
+              <MaterialCommunityIcons
                 name="all-inclusive"
                 color="#FFF"
                 size={20}
@@ -111,7 +112,7 @@ const ProjectBannerCard = ({ text, icon, number, action, ...rest }) => {
               <Text style={styles.bannerText}>10 verions</Text>
             </View>
             <View style={styles.bannerItem}>
-              <Icon
+              <MaterialIcons
                 name="important-devices"
                 color="#FFF"
                 size={20}

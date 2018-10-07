@@ -1,39 +1,28 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import {
-  StyleSheet,
-  View,
-  Text,
-  AsyncStorage,
-  StatusBar,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native'
-import { BottomNavigation } from 'react-native-material-ui'
-import { LinearGradient } from 'expo'
+import { StyleSheet, View, FlatList, ActivityIndicator, Linking, Picker } from 'react-native'
 
-import { NavigationHeader } from '../../components/Navigation'
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+
+import { NavigationHeader } from '../../components/Navigation';
 import { Images, LayoutUtils } from '../../utils'
-import { H1Text } from '../../components/Text'
 import { ProjectBannerCard } from '../../components/Card'
-import { VerticalVersionList } from '../../components/ListItem'
 import { VersionListItem } from '../../components/ListItem'
+
 import injectReducer from '../../utils/injectReducer'
 import injectSaga from '../../utils/injectSaga'
 import reducer from './reducers'
 import saga from './saga'
+
+import { getVersionsRequest } from './actions';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#141e29',
   },
-  wrapper: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+  verionList: {
+    padding: 10
   },
   content: {
     flex: 1,
@@ -45,42 +34,54 @@ const styles = StyleSheet.create({
   }
 });
 
-const stylesBottomNavigation = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#161F47',
-  },
-})
-
 const marginTop = LayoutUtils.getExtraTop()
 
-class VersionListClass extends React.Component {
+class VersionListScreenClass extends React.Component {
+
   constructor(props) {
     super(props);
+    this.props.getVersions(this.props.navigation.getParam('projectId', -1), 1);
+  }
+
+  _download(item) {
+    Linking.canOpenURL(item.link).then(supported => {
+      if (supported) {
+        Linking.openURL(item.link);
+      } else {
+        console.log('Can open link', item.link);
+      }
+    });
+  }
+
+  _renderVersionListItem(item) {
+    return (
+      <VersionListItem
+        item={item}
+        icon="people"
+        onDownload={ () => this._download(item) } />
+    );
+  }
+
+  _renderVersionList() {
+    return (
+      <FlatList style={styles.verionList}
+        data={this.props.project.versions}
+        keyExtractor={(item, index) => `${item.id}`}
+        renderItem={({ item }) => this._renderVersionListItem(item)} />
+    );
   }
 
   render() {
-    const { goBack } = this.props
+    let content;
+
+    if (this.props.loading) {
+      content = <ActivityIndicator style={styles.container} size="large" color="#FFFFFF" />;
+    } else {
+      content = this._renderVersionList();
+    }
 
     return (
       <View style={styles.container}>
-        <LinearGradient
-          colors={['rgba(7,46,89,0.8)', 'transparent']}
-          start={[0, 0]}
-          end={[1, 1]}
-          location={[0.25, 0.6, 1]}
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            height: '100%',
-          }}
-        />
-        <StatusBar barStyle='light-content' />
         <NavigationHeader
           style={{ marginTop: marginTop + 20 }}
           headerItem={{
@@ -88,75 +89,43 @@ class VersionListClass extends React.Component {
             icon: null,
             button: Images.closeButton
           }}
-          action={goBack}
+          action={() => this.props.navigation.goBack()}
           rightView={{
             rightViewIcon: Images.closeButton,
             rightViewAction: this.goBack,
             rightViewTitle: '4'
           }}
         />
-        <View style={styles.wrapper}>
-          <ScrollView
-            contentContainerStyle={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'center',
-              // flexDirection: 'row',
-              // flexWrap: 'wrap',
-              // justifyContent: 'center',
-              // alignItems: 'flex-start',
-            }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="always"
-            nestedScrollEnabled={true}
-          >
-            <ProjectBannerCard text="Test Ne"/>
-            <View style={styles.content}>
-              <View style={styles.contentPadding}>
-                <VerticalVersionList title="All" number="5">
-                  <VersionListItem text="v1.0.1 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.2 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.3 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.4 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.5 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.6 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.7 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.8 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.9 - 2018/09/27" icon="people"/>
-                  <VersionListItem text="v1.0.10 - 2018/09/27" icon="people"/>
-                </VerticalVersionList>
-              </View>
-            </View>
-          </ScrollView>
-        </View>
+        <ProjectBannerCard text={this.props.project.name || ''} />
+        <Picker
+          selectedValue={this.props.type}
+          style={{ height: 50, color: '#000000', backgroundColor: '#FFFFFF'}}
+          onValueChange={(itemValue, itemIndex) => this.props.getVersions(this.props.navigation.getParam('projectId', -1), itemValue) }>
+            <Picker.Item label="Android" value={2} />
+            <Picker.Item label="iOS" value={1} />
+        </Picker>
+        {content}
       </View>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
-  const loading = state.version.get('loading')
+  console.log('mapStateToProps', state);
   return {
-    loading,
+    loading: state.versions.loading,
+    type: state.versions.type,
+    project: state.versions.data
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  goBack: () => dispatch({ type: 'GO_BACK' }),
+const mapDispatchToProps = (dispatch) => ({
+  getVersions: (projectId, type) => dispatch(getVersionsRequest(projectId, type)),
 })
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer({key: 'version', reducer})
-const withSaga = injectSaga({ key: 'version', saga })
-
-const VersionListScreen = compose(
-  withReducer,
-  withConnect,
-  withConnect,
-)(VersionListClass)
+const withReducer = injectReducer({ key: 'versions', reducer });
+const withSaga = injectSaga({ key: 'versions', saga });
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const VersionListScreen = compose(withReducer, withSaga, withConnect)(VersionListScreenClass);
 
 export { VersionListScreen }
