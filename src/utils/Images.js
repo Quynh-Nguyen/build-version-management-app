@@ -84,7 +84,8 @@ const Images = {
   imgEmptyBox: require('../assets/images/empty_box.png'),
   arrowBack: require('../assets/images/arrow_back.png'),
   arrowForward: require('../assets/images/arrow_forward.png'),
-  iconRefresh: require('../assets/images/icon_refresh.png')
+  iconRefresh: require('../assets/images/icon_refresh.png'),
+  projectDetailBanner: require('../assets/images/banner.png'),
 }
 
 export { Images }

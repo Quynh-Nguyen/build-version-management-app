@@ -10,6 +10,8 @@ import {
 import { Icon } from 'react-native-material-ui'
 import { FontAwesome, Octicons, MaterialCommunityIcons, Feather, Entypo } from '@expo/vector-icons'
 
+import { DownloadButton } from '../../components/Button'
+
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
@@ -23,17 +25,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   wrapper: {
-    flex: 0.9,
+    flex: 1,
     flexDirection: 'row',
   },
   header: {
     flex: 0.5,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   footer: {
     flex: 0.5,
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   icon: {
     flex: 0.1,
@@ -44,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   content:{
-    flex: 0.5,
+    flex: 0.7,
   },
   dot: {
     backgroundColor: '#3FE77B',
@@ -56,24 +60,29 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 14,
     letterSpacing: 0.4,
+    marginBottom: 5,
   },
   subText: {
     color: '#B1BCFD',
     fontSize: 10,
     letterSpacing: 0.29,
-    marginLeft: 2,
   },
   subContent: {
     flexDirection: 'row',
     marginTop: 5,
   },
   subFooter: {
+    flex: 0.8,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
   subFooterIcon: {
     marginRight: 15,
+  },
+  download: {
+    flex: 0.2,
+    paddingTop: 15,
   }
 })
 
@@ -96,57 +105,51 @@ const VersionListItem = ({ item, action, onDownload }) => {
             </View>
             <View style={styles.content}>
               <View style={styles.header}>
-                <Text style={styles.text}>{item.version}</Text>
-                <Text style={{ color: '#FFFFFF', marginLeft: 'auto' }}>{ item.updated_at || item.created_at }</Text>
+                <Text style={styles.text}>v{item.version}</Text>
+                <Text style={styles.subText}>{ item.updated_at || item.created_at }</Text>
               </View>
               <View style={styles.footer}>
                 <View style={styles.subFooter}>
                   <FontAwesome
                     name="bitbucket"
-                    size={22}
+                    size={20}
                     color="#3D5AFE"
                     style={styles.subFooterIcon}
                   />
                   <Octicons
                     name="link"
-                    size={12}
+                    size={10}
                     color="#B1BCFD"
                     style={styles.subFooterIcon}
                   />
                   <MaterialCommunityIcons
                     name="jira"
-                    size={22}
+                    size={20}
                     color="#3D5AFE"
                     style={styles.subFooterIcon}
                   />
                   <Octicons
                     name="link"
-                    size={12}
+                    size={10}
                     color="#B1BCFD"
                     style={styles.subFooterIcon}
                   />
                   <Feather
                     name="slack"
-                    size={22}
+                    size={20}
                     color="#3D5AFE"
                     style={styles.subFooterIcon}
-                  />
-                  <Octicons
-                    name="link"
-                    size={12}
-                    color="#B1BCFD"
-                    style={styles.subFooterIcon}
-                  />
-                  <Entypo
-                    name="download"
-                    size={22}
-                    color="#3D5AFE"
-                    style={styles.subFooterIcon}
-                    onPress={() => onDownload()}
                   />
                 </View>
               </View>
             </View>
+          </View>
+          <View style={styles.download}>
+            <DownloadButton
+              size={22}
+              text='Get'
+              onPress={onDownload}
+            />
           </View>
         </View>
       </TouchableOpacity>
