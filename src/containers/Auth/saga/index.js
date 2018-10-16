@@ -7,9 +7,19 @@ import {
   loginSuccess,
   loginError,
   registerSuccess,
-  registerError
+  registerError,
 } from '../actions'
-import { LOGIN_REQUESTED, REGISTER_REQUESTED } from '../constants'
+import {
+  loginSuccessRedirect,
+  getStartedRedirect,
+  loginScreenRedirect,
+} from '../routers'
+import {
+  LOGIN_REQUESTED,
+  REGISTER_REQUESTED,
+  GET_STARTED,
+  LOGIN_GOTO,
+} from '../constants'
 import ApiService from '../../../utils/axios'
 
 const LOGIN_API = '/users/login'
@@ -27,8 +37,9 @@ export function* login(action) {
   try {
     const {data} = yield call(ApiService.post, LOGIN_API, action.payload)
     if (data.status) {
-      yield call(setToken, data.data.token)
-      yield put(loginSuccess({token: data.data.token}))
+      yield call(setToken, data.data)
+      yield put(loginSuccess({token: data.data}))
+      yield call(loginSuccessRedirect)
     } else {
       yield put(loginError({error: data.error.message[0]}))
     }
@@ -41,8 +52,9 @@ export function* register(action) {
   try {
     const { data } = yield call(ApiService.post, REGISTER_API, action.payload)
     if (data.status) {
-      yield call(setToken, data.data.token)
-      yield put(registerSuccess({token: data.data.token}))
+      yield call(setToken, data.data)
+      yield put(registerSuccess({token: data.data}))
+      yield call(loginSuccessRedirect)
     } else {
       yield put(registerError({ error: data.error.message[0] }))
     }
@@ -51,7 +63,25 @@ export function* register(action) {
   }
 }
 
+export function* getStarted(action) {
+  try {
+    yield call(getStartedRedirect)
+  } catch (error) {
+    console.log('GET_STARTED_ERROR', error)
+  }
+}
+
+export function* loginGoto(action) {
+  try {
+    yield call(loginScreenRedirect)
+  } catch (error) {
+    console.log('LOGIN_GOTO_ERROR', error)
+  }
+}
+
 export default function* test() {
   yield takeEvery(LOGIN_REQUESTED, login)
   yield takeEvery(REGISTER_REQUESTED, register)
+  yield takeEvery(GET_STARTED, getStarted)
+  yield takeEvery(LOGIN_GOTO, loginGoto)
 }

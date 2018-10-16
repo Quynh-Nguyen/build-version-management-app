@@ -23,6 +23,7 @@ import injectSaga from '../../utils/injectSaga'
 import reducer from './reducers'
 import saga from './saga'
 import {
+  goBack,
   gotoProjectDetail,
 } from './actions'
 
@@ -58,14 +59,14 @@ const marginTop = LayoutUtils.getExtraTop()
 class DashboardScreenClass extends React.Component {
   constructor(props) {
     super(props);
-    // this._bootstrapAsync();
+    this._bootstrapAsync();
     this.state = {
       active: `dashboard`
     }
   }
 
   _bootstrapAsync = async() => {
-    const userToken = await AsyncStorage.removeItem('userToken');
+    // const userToken = await AsyncStorage.removeItem('userToken');
   }
 
   onPressProjectCard = () => {
@@ -96,10 +97,10 @@ class DashboardScreenClass extends React.Component {
             icon: null,
             button: Images.closeButton
           }}
-          action={this.goBack}
+          action={this.onPressGoBack}
           rightView={{
             rightViewIcon: Images.closeButton,
-            rightViewAction: this.goBack,
+            // rightViewAction: this.goBack,
             rightViewTitle: '4'
           }}
         />
@@ -139,14 +140,14 @@ class DashboardScreenClass extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const loading = state.main.get('loading')
+  const loading = state.dashboard.get('loading')
   return {
     loading,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  goBack: () => dispatch({ type: 'GO_BACK' }),
+  onPressGoBack: () => dispatch(goBack()),
   onPressProjectCard: () => dispatch(gotoProjectDetail({projectId: 5})),
 })
 
@@ -155,12 +156,12 @@ const withConnect = connect(
   mapDispatchToProps,
 )
 
-const withReducer = injectReducer({key: 'main', reducer})
-const withSaga = injectSaga({ key: 'main', saga })
+const withReducer = injectReducer({key: 'dashboard', reducer})
+const withSaga = injectSaga({ key: 'dashboard', saga })
 
 const DashboardScreen = compose(
   withReducer,
-  withConnect,
+  withSaga,
   withConnect,
 )(DashboardScreenClass)
 

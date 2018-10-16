@@ -85,6 +85,10 @@ class ObservableNavStore {
   }
 
   @action pushToScreen(routeName, params = null) {
+    console.log('this.navigator ', NavigationActions.navigate({
+      routeName,
+      params
+    }))
     this.navigator && this.navigator.dispatch(NavigationActions.navigate({
       routeName,
       params

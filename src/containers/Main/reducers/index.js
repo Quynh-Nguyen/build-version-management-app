@@ -11,7 +11,7 @@ export default(state = initialState, action) => {
   let nextState;
   switch (action.type) {
     case 'VERSION_LIST_GOTO':
-      NavStore.pushToScreen('VersionList')
+      console.log('test')
       break;
     default:
       // nextState = AuthNavigator.router.getStateForAction(action, state);

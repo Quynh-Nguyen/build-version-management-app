@@ -7,6 +7,13 @@ const gotoProjectDetail = (payload) => {
   }
 }
 
+const goBack = () => {
+  return {
+    type: 'GO_BACK'
+  }
+}
+
 export {
+  goBack,
   gotoProjectDetail,
 }

@@ -30,7 +30,8 @@ class SplashScreen extends React.Component {
     const { navigation } = this.props
     const userToken = await AsyncStorage.getItem('userToken');
     await Font.loadAsync({
-      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf')
+      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+      'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf')
     })
     console.log('userToken', userToken);
     console.log('this.props.navigation', navigation);
