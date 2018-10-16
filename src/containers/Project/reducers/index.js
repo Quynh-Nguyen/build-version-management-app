@@ -11,10 +11,11 @@ export default(state = initialState, action) => {
   let nextState;
   switch (action.type) {
     case 'VERSION_LIST_GOTO':
-      NavStore.pushToScreen('VersionList')
+      return state.set('loading', false)
+      // NavStore.pushToScreen('VersionList')
       break;
     default:
-      break;
+      return state;
   }
 
   // Simply return the original `state` if `nextState` is null or undefined.

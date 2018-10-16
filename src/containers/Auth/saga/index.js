@@ -7,8 +7,11 @@ import {
   loginSuccess,
   loginError,
   registerSuccess,
-  registerError
+  registerError,
 } from '../actions'
+import {
+  loginSuccessRedirect,
+} from '../routers'
 import { LOGIN_REQUESTED, REGISTER_REQUESTED } from '../constants'
 import ApiService from '../../../utils/axios'
 
@@ -17,6 +20,7 @@ const REGISTER_API = '/users/register'
 
 export function* setToken(token) {
   try {
+    console.log('set Token')
     AsyncStorage.setItem('userToken', token)
   } catch (e) {
     console.log('SET TOKEN ERROR', e)
@@ -27,8 +31,9 @@ export function* login(action) {
   try {
     const {data} = yield call(ApiService.post, LOGIN_API, action.payload)
     if (data.status) {
-      yield call(setToken, data.data.token)
-      yield put(loginSuccess({token: data.data.token}))
+      yield call(setToken, data.data)
+      yield put(loginSuccess({token: data.data}))
+      yield call(loginSuccessRedirect)
     } else {
       yield put(loginError({error: data.error.message[0]}))
     }
@@ -41,8 +46,8 @@ export function* register(action) {
   try {
     const { data } = yield call(ApiService.post, REGISTER_API, action.payload)
     if (data.status) {
-      yield call(setToken, data.data.token)
-      yield put(registerSuccess({token: data.data.token}))
+      yield call(setToken, data.data)
+      yield put(registerSuccess({token: data.data}))
     } else {
       yield put(registerError({ error: data.error.message[0] }))
     }

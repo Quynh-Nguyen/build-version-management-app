@@ -22,11 +22,9 @@ export default(state = initialState, action) => {
   let nextState;
   switch (action.type) {
     case GET_STARTED:
-      NavStore.pushToScreen('LoginNavigator')
       break;
     case LOGIN_GOTO:
-        NavStore.pushToScreen('Login')
-        break;
+      break;
     case LOGIN_REQUESTED || REGISTER_REQUESTED:
       return state
         .set('loading', true)
@@ -37,7 +35,7 @@ export default(state = initialState, action) => {
         .set('error', true)
       break;
     case LOGIN_SUCCEED || REGISTER_SUCCEED:
-      NavStore.pushToScreen('Main')
+
       break;
     default:
       // nextState = AuthNavigator.router.getStateForAction(action, state);

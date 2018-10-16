@@ -6,6 +6,7 @@ import {
   REGISTER_SUCCEED,
   REGISTER_FAILED
 } from '../constants'
+import NavStore from '../../../store/NavStore'
 
 const loginRequest = (payload) => {
   return {
@@ -18,6 +19,7 @@ const loginRequest = (payload) => {
 }
 
 const loginSuccess = (payload) => {
+  console.log('loginSuccess')
   return {
     type: LOGIN_SUCCEED,
     payload: {

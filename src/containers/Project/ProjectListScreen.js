@@ -54,7 +54,7 @@ const stylesBottomNavigation = StyleSheet.create({
 
 const marginTop = LayoutUtils.getExtraTop()
 
-class ProjectListScreenClass extends React.Component {
+class ProjectListScreenClass extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -127,22 +127,29 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  goBack: () => dispatch({ type: 'GO_BACK' }),
-  onPressProjectCard: () => dispatch(gotoProjectDetail({projectId: 5})),
-})
+// const mapDispatchToProps = dispatch => ({
+//   goBack: () => dispatch({ type: 'GO_BACK' }),
+//   onPressProjectCard: () => dispatch(gotoProjectDetail({projectId: 5})),
+// })
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    goBack: event => dispatch({ type: 'GO_BACK' }),
+    onPressProjectCard: event => dispatch(gotoProjectDetail({projectId: 5})),
+  }
+}
 
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 )
 
-const withReducer = injectReducer({key: 'main', reducer})
-const withSaga = injectSaga({ key: 'main', saga })
+const withReducer = injectReducer({key: 'project', reducer})
+const withSaga = injectSaga({ key: 'project', saga })
 
 const ProjectListScreen = compose(
   withReducer,
-  withConnect,
+  withSaga,
   withConnect,
 )(ProjectListScreenClass)
 
