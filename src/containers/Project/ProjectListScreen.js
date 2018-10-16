@@ -121,23 +121,16 @@ class ProjectListScreenClass extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => {
-  const loading = state.main.get('loading')
+  const loading = state.project.get('loading')
   return {
     loading,
   }
 }
 
-// const mapDispatchToProps = dispatch => ({
-//   goBack: () => dispatch({ type: 'GO_BACK' }),
-//   onPressProjectCard: () => dispatch(gotoProjectDetail({projectId: 5})),
-// })
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    goBack: event => dispatch({ type: 'GO_BACK' }),
-    onPressProjectCard: event => dispatch(gotoProjectDetail({projectId: 5})),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  goBack: () => dispatch({ type: 'GO_BACK' }),
+  onPressProjectCard: () => dispatch(gotoProjectDetail({projectId: 5})),
+})
 
 const withConnect = connect(
   mapStateToProps,

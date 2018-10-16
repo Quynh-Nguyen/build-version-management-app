@@ -3,13 +3,9 @@ import { fromJS } from 'immutable'
 import NavStore from '../../../store/NavStore'
 
 import {
-  GET_STARTED,
-  LOGIN_GOTO,
   LOGIN_REQUESTED,
-  LOGIN_SUCCEED,
   LOGIN_FAILED,
   REGISTER_REQUESTED,
-  REGISTER_SUCCEED,
   REGISTER_FAILED
 } from '../constants'
 
@@ -21,10 +17,6 @@ export const initialState = fromJS({
 export default(state = initialState, action) => {
   let nextState;
   switch (action.type) {
-    case GET_STARTED:
-      break;
-    case LOGIN_GOTO:
-      break;
     case LOGIN_REQUESTED || REGISTER_REQUESTED:
       return state
         .set('loading', true)
@@ -33,9 +25,6 @@ export default(state = initialState, action) => {
       return state
         .set('loading', false)
         .set('error', true)
-      break;
-    case LOGIN_SUCCEED || REGISTER_SUCCEED:
-
       break;
     default:
       // nextState = AuthNavigator.router.getStateForAction(action, state);

@@ -11,6 +11,8 @@ import {
 } from 'react-native'
 import { Icon } from 'react-native-material-ui'
 
+import { PlatformButton } from '../../components/Button'
+
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
@@ -35,10 +37,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    flex: 0.5,
+    flex: 0.7,
+  },
+  platform: {
+    flex: 0.2,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   status: {
-    flex: 0.5,
+    flex: 0.3,
     alignItems: 'flex-end',
   },
   content:{

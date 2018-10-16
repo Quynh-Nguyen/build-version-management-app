@@ -36,7 +36,7 @@ class SplashScreen extends React.Component {
     console.log('userToken', userToken);
     console.log('this.props.navigation', navigation);
 
-    navigation.navigate(userToken ? 'Main' : 'LoginNavigator');
+    navigation.navigate(userToken ? 'Main' : 'Auth');
   }
 
   render() {

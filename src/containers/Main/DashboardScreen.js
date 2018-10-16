@@ -66,7 +66,7 @@ class DashboardScreenClass extends React.Component {
   }
 
   _bootstrapAsync = async() => {
-    const userToken = await AsyncStorage.removeItem('userToken');
+    // const userToken = await AsyncStorage.removeItem('userToken');
   }
 
   onPressProjectCard = () => {
