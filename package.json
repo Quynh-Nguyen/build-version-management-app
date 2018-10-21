@@ -30,7 +30,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
-    "expo": "^27.1.1",
+    "expo": "^30.0.1",
+    "expokit": "1.7.1",
     "hoist-non-react-statics": "^3.0.1",
     "immutable": "^3.8.2",
     "invariant": "^2.2.4",
@@ -40,7 +41,7 @@
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "16.3.1",
-    "react-native": "~0.55.2",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-material-design": "^0.3.7",
     "react-native-material-textfield": "^0.12.0",
     "react-native-material-ui": "^1.30.1",
