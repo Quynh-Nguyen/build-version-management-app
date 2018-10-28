@@ -17,6 +17,7 @@ import { NavigationHeader } from '../../components/Navigation'
 import { Images, LayoutUtils } from '../../utils'
 import { H1Text } from '../../components/Text'
 import { ProjectCard, DashboardSummaryCard } from '../../components/Card'
+import { DashboardProjectCardPlaceholder } from '../../components/ContentPlaceholder'
 import { HorizontalList } from '../../components/ListItem'
 import injectReducer from '../../utils/injectReducer'
 import injectSaga from '../../utils/injectSaga'
@@ -25,6 +26,7 @@ import saga from './saga'
 import {
   goBack,
   gotoProjectDetail,
+  getProjectsRequest,
 } from './actions'
 
 const styles = StyleSheet.create({
@@ -73,7 +75,37 @@ class DashboardScreenClass extends React.Component {
     this.props.navigation.navigate('Version', { projectId: 1, type: 1 });
   }
 
+  _renderProjectListContentPlaceholder() {
+    return (
+      <HorizontalList title="Project" number="4">
+        <DashboardProjectCardPlaceholder />
+        <DashboardProjectCardPlaceholder />
+        <DashboardProjectCardPlaceholder />
+        <DashboardProjectCardPlaceholder />
+      </HorizontalList>
+    )
+  }
+
+  _renderProjectList() {
+    return (
+      <HorizontalList title="Project" number="4">
+        <ProjectCard text="PROJECT A" icon="compare-arrows" number="5" action={this.onPressProjectCard}/>
+        <ProjectCard text="PROJECT B" icon="details" number="4"/>
+        <ProjectCard text="PROJECT C" icon="polymer" number="10"/>
+        <ProjectCard text="PROJECT D" icon="favorite-border" number="15"/>
+      </HorizontalList>
+    )
+  }
+
   render() {
+    let projectList;
+
+    if (this.props.loading) {
+      projectList = this._renderProjectListContentPlaceholder()
+    } else {
+      projectList = this._renderProjectList()
+    }
+
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -118,12 +150,7 @@ class DashboardScreenClass extends React.Component {
               <H1Text>Welcome,</H1Text>
               <H1Text>to Maverapp</H1Text>
               <DashboardSummaryCard />
-              <HorizontalList title="Project" number="4">
-                <ProjectCard text="PROJECT A" icon="compare-arrows" number="5" action={this.onPressProjectCard}/>
-                <ProjectCard text="PROJECT B" icon="details" number="4"/>
-                <ProjectCard text="PROJECT C" icon="polymer" number="10"/>
-                <ProjectCard text="PROJECT D" icon="favorite-border" number="15"/>
-              </HorizontalList>
+              {projectList}
               <HorizontalList title="Device" number="5">
                 <ProjectCard text="iPhone 4" icon="compare-arrows" number="5"/>
                 <ProjectCard text="iPhone 5" icon="details" number="4"/>
@@ -149,6 +176,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   onPressGoBack: () => dispatch(goBack()),
   onPressProjectCard: () => dispatch(gotoProjectDetail({projectId: 5})),
+  getProjects: (projectId, type) => dispatch(getProjectsRequest(projectId, type)),
 })
 
 const withConnect = connect(
