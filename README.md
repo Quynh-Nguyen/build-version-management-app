@@ -57,4 +57,5 @@ yarn
 * Hung Dang - hungqd
 * Hanh Tran - peteyhanh@gmail.com
 * Tan Nguyen (Backend) - 
+* Tai Le (Backend) - 
 * ... join with us
