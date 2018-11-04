@@ -16,9 +16,6 @@ const goBack = () => {
 const getProjectsRequest = () => {
   return {
     type: 'GET_PROJECTS_REQUEST',
-    payload: {
-
-    }
   }
 }
 
@@ -28,7 +25,17 @@ const getProjectsSucceed = (data) => {
     payload: {
       data
     }
-  };
+  }
+}
+
+const getVersionForProjectSucceed = (data) => {
+  return {
+    type: 'GET_VERSIONS_FOR_PROJECT_SUCCEED',
+    payload: {
+      projectId: data.projectId,
+      versions: data.versions,
+    }
+  }
 }
 
 const getProjectsFailed = (error) => {
@@ -45,5 +52,6 @@ export {
   gotoProjectDetail,
   getProjectsRequest,
   getProjectsSucceed,
-  getProjectsFailed
+  getProjectsFailed,
+  getVersionForProjectSucceed,
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, FlatList, ActivityIndicator, Linking, Picker, SafeAreaView, ImageBackground } from 'react-native'
+import { StyleSheet, View, FlatList, ActivityIndicator, Linking, Picker, SafeAreaView, ImageBackground, VirtualizedList } from 'react-native'
 import { LinearGradient } from 'expo'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
@@ -62,32 +62,41 @@ class VersionListScreenClass extends React.Component {
     this.props.getVersions(this.props.navigation.getParam('projectId', -1), 1);
   }
 
-  _download(item) {
+  _download(link) {
     Linking.canOpenURL('https://s3.us-east-2.amazonaws.com/drone-learning-s3/ROOFER.plist').then(supported => {
       if (supported) {
         Linking.openURL('itms-services://?action=download-manifest&amp;url=https://s3.us-east-2.amazonaws.com/drone-learning-s3/ROOFER.plist');
       } else {
-        console.log('Can open link', item.link);
+        console.log('Can open link', link);
       }
     });
   }
 
-  _renderVersionListItem(item) {
+  _renderVersionListItem({ item }) {
     return (
       <VersionListItem
-        item={item}
+        item={{
+          version: item.get('version'),
+          updated_at: item.get('updated_at'),
+          created_at: item.get('created_at'),
+        }}
         icon="people"
-        onDownload={ () => this._download(item) } />
-    );
+        onDownload={ () => this._download(item.get('link')) } />
+    )
   }
 
   _renderVersionList() {
-    return (
-      <FlatList style={styles.verionList}
-        data={this.props.project.versions}
-        keyExtractor={(item, index) => `${item.id}`}
+    const currentProjectId = this.props.navigation.getParam('projectId', -1)
+    const versionsOfCurrentProject = this.props.projects.getIn([`${currentProjectId}`, 'versions'])
+
+    return (versionsOfCurrentProject === undefined) ? null : (
+      <VirtualizedList
+        data={versionsOfCurrentProject}
+        getItem={(items, index) => this.props.versions.get(`${items.get(index)}`)}
+        getItemCount={(items) => (items.size || 0)}
+        keyExtractor={(item, index) => `${index}`}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => this._renderVersionListItem(item)} />
+        renderItem={(item) => this._renderVersionListItem(item)} />
     );
   }
 
@@ -146,9 +155,10 @@ class VersionListScreenClass extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.versions.loading,
-    type: state.versions.type,
-    project: state.versions.data
+    loading: state.versions.get('loading'),
+    type: state.versions.get('type'),
+    versions: state.versions.get('versions'),
+    projects: state.dashboard.get('projects')
   }
 }
 

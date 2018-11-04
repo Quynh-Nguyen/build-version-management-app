@@ -64,13 +64,15 @@ const styles = StyleSheet.create({
   }
 })
 
-const ProjectCard = ({ text, icon, number, action, ...rest }) => {
+const ProjectCard = ({ id, text, icon, number, action, ...rest }) => {
 
   return (
     <View style={{flex: 1, flexDirection: 'row'}}>
       <TouchableOpacity
         style={{flex: 1, flexDirection: 'row'}}
-        onPress={() => { action() }}
+        onPress={() => { 
+          return action(id) 
+        }}
       >
         <View style={styles.container}>
           <View style={styles.wrapper}>

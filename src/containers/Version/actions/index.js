@@ -11,10 +11,8 @@ const getVersionsRequest = (projectId, type) => {
 
 const getVersionSuccess = (data) => {
   return {
-    type: 'GET_VERSIONS_SUCCESS',
-    payload: {
-      data
-    }
+    type: 'GET_VERSIONS_SUCCEED',
+    payload: data
   };
 }
 

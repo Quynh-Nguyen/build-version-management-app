@@ -8,6 +8,7 @@ const initialState = {
   loading: false,
   error: false,
   currentUser: false,
+  currentProject: false,
 };
 
 export default(state = initialState, action) => {

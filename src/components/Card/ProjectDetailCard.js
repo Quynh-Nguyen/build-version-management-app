@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
 })
 
 const ProjectDetailCard = ({ text, action, icon, number, ...rest }) => {
-
   return (
     <View style={{marginBottom: 10}}>
       <TouchableOpacity
@@ -113,7 +112,7 @@ const ProjectDetailCard = ({ text, action, icon, number, ...rest }) => {
 }
 
 ProjectDetailCard.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   action: PropTypes.func,
   icon: PropTypes.oneOfType([
     PropTypes.string,

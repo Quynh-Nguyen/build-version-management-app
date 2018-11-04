@@ -36,8 +36,8 @@ const DashboardProjectCardPlaceholder = ({ title, number, ...rest }) => {
             >
                 <Svg.Circle cx="8" cy="24" r="8"/>
                 <Svg.Circle cx="90" cy="24" r="3"/>
-                <Svg.Rect x="0" y="50" rx="4" ry="4" width="70" height="8"/>
-                <Svg.Rect x="0" y="67" rx="4" ry="4" width="30" height="8"/>
+                <Svg.Rect x="0" y="50" rx="2" ry="2" width="70" height="8"/>
+                <Svg.Rect x="0" y="67" rx="2" ry="2" width="30" height="8"/>
             </BaseContentPlaceholder>
         </View>
     </View>
