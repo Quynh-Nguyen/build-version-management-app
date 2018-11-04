@@ -118,7 +118,8 @@ build-version-management-app
 │       ├── injectSaga.js
 │       ├── reducerInjectors.js
 │       └── sagaInjectors.js
-└── tsconfig.json```
+└── tsconfig.json
+```
 
 ### Credits
 * Quynh Nguyen - likeguitarz@gmail.com
