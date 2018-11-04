@@ -52,6 +52,74 @@ yarn
 
 ### Source Tree
 
+```
+build-version-management-app
+├── App.js
+├── App.test.js
+├── Maverapp.png
+├── README.md
+├── android
+├── app.json
+├── ios
+├── package.json
+├── src
+│   ├── assets
+│   │   ├── fonts
+│   │   └── images
+│   ├── components
+│   │   ├── Button
+│   │   ├── Card
+│   │   ├── Input
+│   │   ├── ListItem
+│   │   ├── Navigation
+│   │   ├── Project
+│   │   ├── Row
+│   │   └── Text
+│   ├── containers
+│   │   ├── Auth
+│   │   ├── Login
+│   │   ├── Main
+│   │   ├── Project
+│   │   ├── Register
+│   │   ├── Splash
+│   │   └── Version
+│   ├── layouts
+│   │   ├── MasterLayout.js
+│   │   └── index.js
+│   ├── navigators
+│   │   ├── app.js
+│   │   ├── auth.js
+│   │   ├── index.js
+│   │   ├── login.js
+│   │   ├── main.js
+│   │   ├── project.js
+│   │   └── tabbar.js
+│   ├── reducers
+│   │   ├── app.js
+│   │   └── index.js
+│   ├── routes
+│   │   └── index.js
+│   ├── services
+│   │   └── reducer.js
+│   ├── store
+│   │   ├── NavStore.js
+│   │   └── index.js
+│   ├── styles
+│   │   ├── MasterStyle.js
+│   │   └── index.js
+│   └── utils
+│       ├── Images.js
+│       ├── LayoutUtils.js
+│       ├── axios.js
+│       ├── checkStore.js
+│       ├── constants.js
+│       ├── index.js
+│       ├── injectReducer.js
+│       ├── injectSaga.js
+│       ├── reducerInjectors.js
+│       └── sagaInjectors.js
+└── tsconfig.json```
+
 ### Credits
 * Quynh Nguyen - likeguitarz@gmail.com
 * Hung Dang - hungqd
