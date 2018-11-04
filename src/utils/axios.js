@@ -21,7 +21,6 @@ const ApiService = {
   },
 
   post(resource, params) {
-    console.log('Params', params)
     return axios
       .post(`${resource}`, params)
   },

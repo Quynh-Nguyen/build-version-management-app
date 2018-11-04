@@ -1,29 +1,29 @@
-const initialState = {
+import { fromJS } from 'immutable'
+
+const initialState = fromJS({
   loading: false,
+  error: false,
   type: 1,
-  data: {}
-};
+  versions: {},
+})
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'GET_VERSIONS':
-      return {
-        ...state,
-        type: action.payload.type,
-        loading: true
-      }
-    case 'GET_VERSIONS_SUCCESS':
-      return {
-        ...state,
-        loading: false,
-        data: action.payload.data.project
-      }
+      return state.mergeDeep({
+        'type': action.payload.type,
+        'loading': true,
+      })
+    case 'GET_VERSIONS_SUCCEED':
+      return state.mergeDeep({
+        'loading': false,
+        'versions': action.payload.versions,
+      })
     case 'GET_VERSIONS_FAILED':
-      return {
-        ...state,
-        loading: false,
-        error: action.payload.error
-      }
+      return state.mergeDeep({
+        'loading': false,
+        'error': action.payload.error,
+      })
     default:
       return state;
   }

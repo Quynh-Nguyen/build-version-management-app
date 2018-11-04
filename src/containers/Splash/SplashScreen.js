@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
   ActivityIndicator,
   AsyncStorage,
@@ -8,9 +8,10 @@ import {
   StyleSheet,
   View,
   Text,
-  } from 'react-native';
-import { Font } from 'expo';
+  } from 'react-native'
+import { Font } from 'expo'
 
+import ApiService from '../../utils/axios'
 
 const styles = StyleSheet.create({
   container: {
@@ -28,15 +29,17 @@ class SplashScreen extends React.Component {
 
   _bootstrapAsync = async() => {
     const { navigation } = this.props
-    const userToken = await AsyncStorage.getItem('userToken');
+    const userToken = await AsyncStorage.getItem('userToken')
+    if (userToken) {
+      await ApiService.setHeader()
+    }
     await Font.loadAsync({
       'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
       'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf')
     })
-    console.log('userToken', userToken);
-    console.log('this.props.navigation', navigation);
+    console.log('userToken', userToken)
 
-    navigation.navigate(userToken ? 'Main' : 'Auth');
+    navigation.navigate(userToken ? 'Main' : 'Auth')
   }
 
   render() {

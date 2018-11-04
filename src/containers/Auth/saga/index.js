@@ -27,7 +27,8 @@ const REGISTER_API = '/users/register'
 
 export function* setToken(token) {
   try {
-    AsyncStorage.setItem('userToken', token)
+    yield call(AsyncStorage.setItem, 'userToken', token)
+    yield call(ApiService.setHeader)
   } catch (e) {
     console.log('SET TOKEN ERROR', e)
   }

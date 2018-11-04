@@ -4,7 +4,6 @@ import { ScaleAndOpacity } from 'react-native-motion';
 
 class ListItem extends React.Component {
   render() {
-    console.log('test');
     const { item } = this.props;
     const { name, ...rest } = item;
 

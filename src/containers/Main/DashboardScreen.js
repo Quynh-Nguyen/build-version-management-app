@@ -17,6 +17,7 @@ import { NavigationHeader } from '../../components/Navigation'
 import { Images, LayoutUtils } from '../../utils'
 import { H1Text } from '../../components/Text'
 import { ProjectCard, DashboardSummaryCard } from '../../components/Card'
+import { DashboardProjectCardPlaceholder } from '../../components/ContentPlaceholder'
 import { HorizontalList } from '../../components/ListItem'
 import injectReducer from '../../utils/injectReducer'
 import injectSaga from '../../utils/injectSaga'
@@ -25,6 +26,7 @@ import saga from './saga'
 import {
   goBack,
   gotoProjectDetail,
+  getProjectsRequest,
 } from './actions'
 
 const styles = StyleSheet.create({
@@ -58,22 +60,54 @@ const marginTop = LayoutUtils.getExtraTop()
 
 class DashboardScreenClass extends React.Component {
   constructor(props) {
-    super(props);
-    this._bootstrapAsync();
+    super(props)
+    this._bootstrapAsync()
     this.state = {
-      active: `dashboard`
+      
     }
+    this.props.getProjects()
   }
 
   _bootstrapAsync = async() => {
     // const userToken = await AsyncStorage.removeItem('userToken');
   }
 
-  onPressProjectCard = () => {
-    this.props.navigation.navigate('Version', { projectId: 1, type: 1 });
+  onPressProjectCard = (projectId) => {
+    console.log('projectId', projectId)
+    this.props.navigation.navigate('Version', { projectId, type: 1 });
+  }
+
+  _renderProjectListContentPlaceholder(countItems) {
+    let arrayObjectPlaceHolder = Array.from(Array(countItems), (_, key) => <DashboardProjectCardPlaceholder key={`project-placeholder-${key}`} />)
+
+    return arrayObjectPlaceHolder
+  }
+
+  _renderProjectList() {
+    const { projects } = this.props
+
+    return projects.isEmpty() ? null : projects.valueSeq().map(project => 
+      <ProjectCard
+        text={project.get('name')}
+        id={project.get('id')}
+        icon="compare-arrows"
+        number="5"
+        action={this.onPressProjectCard}
+        key={`project-${project.get('id')}`}
+      />
+    )
   }
 
   render() {
+    const { loading } = this.props
+    let projectList;
+
+    if (loading) {
+      projectList = this._renderProjectListContentPlaceholder(10)
+    } else {
+      projectList = this._renderProjectList()
+    }
+
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -119,10 +153,7 @@ class DashboardScreenClass extends React.Component {
               <H1Text>to Maverapp</H1Text>
               <DashboardSummaryCard />
               <HorizontalList title="Project" number="4">
-                <ProjectCard text="PROJECT A" icon="compare-arrows" number="5" action={this.onPressProjectCard}/>
-                <ProjectCard text="PROJECT B" icon="details" number="4"/>
-                <ProjectCard text="PROJECT C" icon="polymer" number="10"/>
-                <ProjectCard text="PROJECT D" icon="favorite-border" number="15"/>
+                {projectList}
               </HorizontalList>
               <HorizontalList title="Device" number="5">
                 <ProjectCard text="iPhone 4" icon="compare-arrows" number="5"/>
@@ -141,14 +172,17 @@ class DashboardScreenClass extends React.Component {
 
 const mapStateToProps = (state) => {
   const loading = state.dashboard.get('loading')
+  const projects = state.dashboard.get('projects')
   return {
     loading,
+    projects,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   onPressGoBack: () => dispatch(goBack()),
   onPressProjectCard: () => dispatch(gotoProjectDetail({projectId: 5})),
+  getProjects: () => dispatch(getProjectsRequest()),
 })
 
 const withConnect = connect(
