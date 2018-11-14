@@ -63,9 +63,9 @@ class VersionListScreenClass extends React.Component {
   }
 
   _download(link) {
-    Linking.canOpenURL('https://s3.us-east-2.amazonaws.com/drone-learning-s3/ROOFER.plist').then(supported => {
+    Linking.canOpenURL('https://s3-us-west-2.amazonaws.com/marverapp-autobuild/projects/ROOFER/ROOFER.plist').then(supported => {
       if (supported) {
-        Linking.openURL('itms-services://?action=download-manifest&amp;url=https://s3.us-east-2.amazonaws.com/drone-learning-s3/ROOFER.plist');
+        Linking.openURL('itms-services://?action=download-manifest&amp;url=https://s3-us-west-2.amazonaws.com/marverapp-autobuild/projects/ROOFER/ROOFER.plist');
       } else {
         console.log('Can open link', link);
       }
