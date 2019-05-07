@@ -49,6 +49,8 @@ class TextInputCustom extends React.Component {
         baseColor='#B1BCFD'
         textColor='#FFF'
         tintColor='#00bafb'
+        fontSize={14}
+        labelHeight={30}
         secureTextEntry={secureTextEntry}
         autoCapitalize={autoCapitalize ? autoCapitalize : 'none'}
         lineWidth={1}

@@ -1,6 +1,17 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const window = Dimensions.get('window');
+export const LOGO_LARGE = window.height / 3;
+export const LOGO_SMALL = window.height / 8;
 
 const styles = StyleSheet.create({
+  fullScreen: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
+  },
   container: {
     flex: 1,
     backgroundColor: '#141e29',
@@ -39,8 +50,8 @@ const styles = StyleSheet.create({
   },
   logoIcon: {
     flex: 0.5,
-    width: 150,
-    height: 150,
+    resizeMode: 'contain',
+    height: LOGO_LARGE,
   },
 })
 
